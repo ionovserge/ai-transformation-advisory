@@ -1,0 +1,2501 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import React, { useState } from 'react';
+import { 
+  Zap, 
+  TrendingDown, 
+  TrendingUp, 
+  ShieldCheck, 
+  Users, 
+  Clock, 
+  FileSearch, 
+  BrainCircuit, 
+  ChevronRight, 
+  AlertTriangle,
+  CheckCircle2,
+  BarChart3,
+  ArrowRight,
+  MessageSquare,
+  Mail,
+  Phone,
+  Building2,
+  FileText,
+  AlertCircle,
+  Search,
+  PenTool,
+  Shield,
+  X,
+  Presentation,
+  Truck,
+  ShieldAlert,
+  Home,
+  Menu,
+  Coffee,
+  ShoppingBag,
+  Shirt
+} from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
+
+// --- Components ---
+
+const Navbar = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  return (
+    <nav className="fixed top-0 left-0 right-0 z-[100] bg-white/80 backdrop-blur-xl border-b border-slate-100">
+      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <div className="flex items-center gap-2 group cursor-pointer">
+          <div className="w-10 h-10 bg-slate-900 rounded-xl flex items-center justify-center text-white font-black text-xl group-hover:scale-110 transition-transform shadow-lg shadow-slate-200">
+            AI
+          </div>
+          <div className="flex flex-col">
+            <span className="font-black text-slate-900 tracking-tighter leading-none">TRANSFORMATION</span>
+            <span className="text-[10px] font-medium text-slate-500 tracking-[0.2em] uppercase">Advisory</span>
+          </div>
+        </div>
+
+        {/* Desktop Menu */}
+        <div className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
+          <a href="#problem" className="hover:text-slate-900 transition-colors">Проблема</a>
+          <a href="#solutions-hub" className="hover:text-slate-900 transition-colors">Решения</a>
+          <a href="#cases" className="hover:text-slate-900 transition-colors">Кейсы</a>
+          <a href="#roadmap" className="hover:text-slate-900 transition-colors">Дорожная карта</a>
+          <a href="#contact" className="bg-slate-900 text-white px-5 py-2.5 rounded-full hover:bg-slate-800 transition-all shadow-lg shadow-slate-200">
+            Связаться
+          </a>
+        </div>
+
+        {/* Mobile Menu Toggle */}
+        <button
+          className="md:hidden p-2 text-slate-900"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </div>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="md:hidden absolute top-20 left-0 right-0 bg-white border-b border-slate-100 p-6 flex flex-col gap-6 shadow-xl"
+          >
+            <a href="#problem" onClick={() => setIsMenuOpen(false)} className="text-lg font-bold text-slate-900">Проблема</a>
+            <a href="#solutions-hub" onClick={() => setIsMenuOpen(false)} className="text-lg font-bold text-slate-900">Решения</a>
+            <a href="#cases" onClick={() => setIsMenuOpen(false)} className="text-lg font-bold text-slate-900">Кейсы</a>
+            <a href="#roadmap" onClick={() => setIsMenuOpen(false)} className="text-lg font-bold text-slate-900">Дорожная карта</a>
+            <a href="#contact" onClick={() => setIsMenuOpen(false)} className="bg-slate-900 text-white px-6 py-4 rounded-2xl font-bold text-center">
+              Связаться
+            </a>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </nav>
+  );
+};
+
+const LeadForm = ({ title, subtitle }: { title: string, subtitle?: string }) => {
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitted(true);
+  };
+
+  return (
+    <div className="bg-white rounded-3xl p-8 md:p-10 shadow-2xl shadow-slate-200 border border-slate-100">
+      {submitted ? (
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="text-center py-10"
+        >
+          <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+            <CheckCircle2 size={32} />
+          </div>
+          <h3 className="text-2xl font-bold text-slate-900 mb-2">Заявка принята!</h3>
+          <p className="text-slate-600">Мы свяжемся с вами в течение 24 часов.</p>
+        </motion.div>
+      ) : (
+        <>
+          <h3 className="text-2xl font-bold text-slate-900 mb-2">{title}</h3>
+          {subtitle && <p className="text-slate-600 mb-8">{subtitle}</p>}
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="space-y-1">
+              <label className="text-xs font-bold text-slate-400 uppercase tracking-wider ml-1">Имя</label>
+              <input required type="text" placeholder="Иван Иванов" className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-900 transition-all" />
+            </div>
+            <div className="space-y-1">
+              <label className="text-xs font-bold text-slate-400 uppercase tracking-wider ml-1">Компания</label>
+              <input required type="text" placeholder="Название компании" className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-900 transition-all" />
+            </div>
+            <div className="space-y-1">
+              <label className="text-xs font-bold text-slate-400 uppercase tracking-wider ml-1">Email / Телефон</label>
+              <input required type="text" placeholder="example@mail.ru" className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-900 transition-all" />
+            </div>
+            <button type="submit" className="w-full bg-slate-900 text-white py-4 rounded-xl font-bold hover:bg-slate-800 transition-all flex items-center justify-center gap-2 group">
+              Получить консультацию
+              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+            </button>
+            <p className="text-[10px] text-slate-400 text-center mt-4">
+              Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности.
+            </p>
+          </form>
+        </>
+      )}
+    </div>
+  );
+};
+
+const StatCard = ({ label, value, sub, icon: Icon, trend }: { label: string, value: string, sub: string, icon: any, trend: 'up' | 'down' }) => (
+  <div className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm">
+    <div className="flex items-center justify-between mb-6">
+      <div className="p-3 bg-slate-50 rounded-xl text-slate-900">
+        <Icon size={24} />
+      </div>
+      <div className={`flex items-center gap-1 text-sm font-bold ${trend === 'down' ? 'text-green-600' : 'text-blue-600'}`}>
+        {trend === 'down' ? <TrendingDown size={16} /> : <TrendingUp size={16} />}
+        {trend === 'down' ? 'Снижение' : 'Рост'}
+      </div>
+    </div>
+    <div className="text-4xl font-bold text-slate-900 mb-2 tracking-tight">{value}</div>
+    <div className="text-sm font-bold text-slate-900 mb-1 uppercase tracking-wider">{label}</div>
+    <p className="text-sm text-slate-500 leading-relaxed">{sub}</p>
+  </div>
+);
+
+const CaseCard = ({ title, pain, solution, result, icon: Icon }: { title: string, pain: string, solution: string, result: string, icon: any }) => (
+  <div className="bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-xl transition-all group">
+    <div className="p-8">
+      <div className="w-12 h-12 bg-slate-900 text-white rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+        <Icon size={24} />
+      </div>
+      <h3 className="text-xl font-bold text-slate-900 mb-4">{title}</h3>
+      <div className="space-y-4">
+        <div>
+          <div className="text-[10px] font-bold text-red-500 uppercase tracking-widest mb-1">Боль</div>
+          <p className="text-sm text-slate-600">{pain}</p>
+        </div>
+        <div>
+          <div className="text-[10px] font-bold text-blue-500 uppercase tracking-widest mb-1">Решение</div>
+          <p className="text-sm text-slate-600">{solution}</p>
+        </div>
+        <div className="pt-4 border-t border-slate-50">
+          <div className="text-[10px] font-bold text-green-600 uppercase tracking-widest mb-1">Результат</div>
+          <p className="text-lg font-bold text-slate-900">{result}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+const FeatureIcon = ({ icon: Icon, color = "bg-slate-900" }: { icon: any, color?: string }) => (
+  <div className={`p-3 ${color} rounded-2xl text-white shadow-lg shadow-slate-200 shrink-0`}>
+    <Icon size={24} />
+  </div>
+);
+
+const MaturityStep = ({ level, title, status, desc, current = false }: { level: string, title: string, status: string, desc: string, current?: boolean }) => (
+  <div className={`p-6 rounded-[32px] border transition-all ${current ? 'bg-slate-900 text-white border-slate-900 shadow-xl scale-105 z-10' : 'bg-white text-slate-900 border-slate-100 opacity-60 grayscale'}`}>
+    <div className="flex items-center gap-3 mb-4">
+      <span className="text-[10px] font-bold uppercase tracking-widest px-2 py-1 bg-white/10 rounded-lg">{level}</span>
+      <span className={`text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-lg ${current ? 'bg-blue-500 text-white' : 'bg-slate-100 text-slate-500'}`}>{status}</span>
+    </div>
+    <h4 className="text-xl font-bold mb-3">{title}</h4>
+    <p className={`text-sm leading-relaxed ${current ? 'text-slate-300' : 'text-slate-500'}`}>{desc}</p>
+  </div>
+);
+
+const ChaosToOrderV1 = () => {
+  const chaosIcons = [FileText, Mail, MessageSquare, Clock, AlertCircle];
+  const orderIcons = [Zap, TrendingUp, CheckCircle2, BarChart3, ShieldCheck];
+
+  return (
+    <div className="relative w-full h-full flex items-center justify-center overflow-hidden bg-slate-900 rounded-[32px] md:rounded-[40px] border border-white/10 shadow-2xl min-h-[400px]">
+      {/* Background Glow */}
+      <div className="absolute inset-0 bg-gradient-to-r from-red-500/5 via-blue-500/5 to-green-500/5" />
+      
+      {/* Central AI Engine */}
+      <div className="relative z-20 flex flex-col items-center scale-75 md:scale-100">
+        <motion.div 
+          animate={{ 
+            rotate: 360,
+            scale: [1, 1.05, 1]
+          }}
+          transition={{ 
+            rotate: { duration: 20, repeat: Infinity, ease: "linear" },
+            scale: { duration: 4, repeat: Infinity, ease: "easeInOut" }
+          }}
+          className="w-48 h-48 rounded-full border-2 border-dashed border-blue-500/30 flex items-center justify-center relative"
+        >
+          {/* Inner Core */}
+          <div className="w-32 h-32 bg-blue-600/20 rounded-full blur-2xl absolute animate-pulse" />
+          <div className="w-24 h-24 bg-slate-800 rounded-3xl border border-blue-400/50 flex items-center justify-center shadow-[0_0_30px_rgba(59,130,246,0.4)] relative z-10">
+            <BrainCircuit size={48} className="text-blue-400" />
+          </div>
+          
+          {/* Orbiting Agents */}
+          {[...Array(3)].map((_, i) => (
+            <motion.div
+              key={`agent-${i}`}
+              animate={{ rotate: -360 }}
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+              style={{ 
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: `rotate(${i * 120}deg) translateX(80px)`
+              }}
+            >
+              <div className="w-8 h-8 bg-slate-800 border border-blue-500/50 rounded-lg flex items-center justify-center text-blue-400 shadow-lg">
+                {i === 0 ? <Search size={14} /> : i === 1 ? <PenTool size={14} /> : <Shield size={14} />}
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+        
+        {/* Orchestrator Label */}
+        <div className="mt-6 flex flex-col items-center">
+          <div className="w-1 h-8 bg-gradient-to-b from-blue-500 to-transparent opacity-50" />
+          <div className="px-4 py-1.5 bg-blue-500 text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-full shadow-lg shadow-blue-500/20">
+            Human Orchestrator
+          </div>
+        </div>
+      </div>
+
+      {/* Chaos Flow (Left) */}
+      <div className="absolute left-0 w-1/3 h-full flex flex-col justify-around items-center px-8">
+        {[...Array(5)].map((_, i) => {
+          const Icon = chaosIcons[i % chaosIcons.length];
+          return (
+            <motion.div
+              key={`chaos-item-${i}`}
+              initial={{ x: -100, opacity: 0, scale: 0.8 }}
+              animate={{ 
+                x: [0, 150], 
+                opacity: [0, 1, 0],
+                rotate: [0, 15, -15, 0],
+                scale: [0.8, 1, 0.5]
+              }}
+              transition={{ 
+                duration: 4, 
+                repeat: Infinity, 
+                delay: i * 0.8,
+                ease: "linear"
+              }}
+              className="p-3 bg-slate-800/50 border border-slate-700 rounded-xl text-slate-500"
+            >
+              <Icon size={20} />
+            </motion.div>
+          );
+        })}
+      </div>
+
+      {/* Order Flow (Right) */}
+      <div className="absolute right-0 w-1/3 h-full flex flex-col justify-around items-center px-8">
+        {[...Array(5)].map((_, i) => {
+          const Icon = orderIcons[i % orderIcons.length];
+          return (
+            <motion.div
+              key={`order-item-${i}`}
+              initial={{ x: -150, opacity: 0, scale: 0.5 }}
+              animate={{ 
+                x: [0, 100], 
+                opacity: [0, 1, 0],
+                scale: [0.5, 1.2, 1]
+              }}
+              transition={{ 
+                duration: 3, 
+                repeat: Infinity, 
+                delay: i * 0.6 + 2, // Start after chaos reaches center
+                ease: "easeOut"
+              }}
+              className="p-3 bg-blue-500 text-white rounded-xl shadow-[0_0_15px_rgba(59,130,246,0.5)]"
+            >
+              <Icon size={20} />
+            </motion.div>
+          );
+        })}
+      </div>
+
+      {/* Labels */}
+      <div className="absolute top-8 left-8 flex flex-col">
+        <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Input</span>
+        <span className="text-xs font-bold text-red-400">Manual Chaos</span>
+      </div>
+      <div className="absolute top-8 right-8 flex flex-col text-right">
+        <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Output</span>
+        <span className="text-xs font-bold text-green-400">Autonomous Value</span>
+      </div>
+    </div>
+  );
+};
+
+const ChaosToOrderV2 = () => {
+  const [isAIActive, setIsAIActive] = useState(false);
+  const chaosIcons = [FileText, Mail, MessageSquare, Clock, AlertCircle];
+  const orderIcons = [Zap, TrendingUp, CheckCircle2, BarChart3, ShieldCheck];
+
+  return (
+    <div className="relative w-full h-full flex items-center justify-center overflow-hidden bg-slate-900 rounded-[40px] border border-white/10 shadow-2xl group cursor-default">
+      {/* Background Glow */}
+      <AnimatePresence>
+        {isAIActive && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-blue-400/5 to-blue-600/10" 
+          />
+        )}
+      </AnimatePresence>
+      
+      {/* Central Engine */}
+      <div className="relative z-20 flex flex-col items-center">
+        <motion.div 
+          animate={{ 
+            rotate: isAIActive ? 360 : 0,
+            scale: isAIActive ? [1, 1.1, 1] : 1,
+            borderColor: isAIActive ? "rgba(59,130,246,0.5)" : "rgba(255,255,255,0.1)"
+          }}
+          transition={{ 
+            rotate: { duration: isAIActive ? 10 : 0, repeat: Infinity, ease: "linear" },
+            scale: { duration: 2, repeat: Infinity, ease: "easeInOut" }
+          }}
+          className="w-56 h-56 rounded-full border-2 border-dashed flex items-center justify-center relative transition-colors duration-500"
+        >
+          {/* Inner Core */}
+          <div className={`w-32 h-32 rounded-full blur-3xl absolute transition-all duration-1000 ${isAIActive ? 'bg-blue-500/40 scale-125' : 'bg-slate-500/10 scale-100'}`} />
+          
+          <motion.div 
+            whileHover={{ scale: 1.05 }}
+            onClick={() => setIsAIActive(!isAIActive)}
+            className={`w-28 h-28 rounded-[32px] border flex flex-col items-center justify-center shadow-2xl relative z-10 cursor-pointer transition-all duration-500 ${isAIActive ? 'bg-slate-800 border-blue-400/50 shadow-blue-500/40' : 'bg-slate-900 border-white/10 shadow-black'}`}
+          >
+            <BrainCircuit size={40} className={`transition-colors duration-500 ${isAIActive ? 'text-blue-400' : 'text-slate-600'}`} />
+            <span className={`text-[8px] font-black uppercase tracking-widest mt-2 transition-colors duration-500 ${isAIActive ? 'text-blue-400' : 'text-slate-600'}`}>
+              {isAIActive ? 'Active' : 'Standby'}
+            </span>
+          </motion.div>
+
+          {/* Orbiting Elements (Only if Active) */}
+          {isAIActive && [...Array(4)].map((_, i) => (
+            <motion.div
+              key={`orbit-${i}`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1, rotate: -360 }}
+              transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+              style={{ 
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: `rotate(${i * 90}deg) translateX(100px)`
+              }}
+            >
+              <div className="w-6 h-6 bg-blue-500 rounded-full blur-[2px] opacity-50 shadow-[0_0_10px_#3b82f6]" />
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* Toggle UI */}
+        <div className="mt-8 flex items-center gap-4 bg-white/5 p-2 rounded-2xl border border-white/10 backdrop-blur-sm">
+          <span className={`text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-xl transition-all ${!isAIActive ? 'bg-white text-slate-900' : 'text-slate-500'}`}>Manual</span>
+          <button 
+            onClick={() => setIsAIActive(!isAIActive)}
+            className="w-12 h-6 bg-slate-700 rounded-full relative p-1 transition-colors hover:bg-slate-600"
+          >
+            <motion.div 
+              animate={{ x: isAIActive ? 24 : 0 }}
+              className={`w-4 h-4 rounded-full shadow-lg transition-colors ${isAIActive ? 'bg-blue-500' : 'bg-slate-400'}`}
+            />
+          </button>
+          <span className={`text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-xl transition-all ${isAIActive ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/20' : 'text-slate-500'}`}>AI-Native</span>
+        </div>
+      </div>
+
+      {/* Manual Chaos Side (Left) */}
+      <div className="absolute left-0 w-1/3 h-full flex flex-wrap justify-center content-center gap-6 px-8 opacity-40">
+        {chaosIcons.map((Icon, i) => (
+          <motion.div
+            key={`chaos-icon-${i}`}
+            animate={isAIActive ? { 
+              x: [0, 100, 150], 
+              y: [0, 0, 0],
+              opacity: [0.4, 0.8, 0],
+              scale: [1, 1.2, 0.5],
+              rotate: [0, 45, 90]
+            } : {
+              y: [0, 10, 0],
+              rotate: [0, 5, -5, 0]
+            }}
+            transition={{ 
+              duration: isAIActive ? 2 : 4, 
+              repeat: Infinity, 
+              delay: i * 0.4,
+              ease: isAIActive ? "easeIn" : "easeInOut"
+            }}
+            className={`p-3 rounded-xl border transition-colors duration-500 ${isAIActive ? 'bg-blue-500/10 border-blue-500/20 text-blue-400' : 'bg-slate-800 border-slate-700 text-slate-500'}`}
+          >
+            <Icon size={20} />
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Automated Value Side (Right) */}
+      <div className="absolute right-0 w-1/3 h-full flex flex-wrap justify-center content-center gap-6 px-8">
+        {orderIcons.map((Icon, i) => (
+          <motion.div
+            key={`order-icon-${i}`}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={isAIActive ? { 
+              opacity: 1, 
+              scale: 1,
+              y: [0, -5, 0]
+            } : { 
+              opacity: 0, 
+              scale: 0 
+            }}
+            transition={{ 
+              duration: 0.5, 
+              delay: i * 0.1 + 1,
+              y: { duration: 3, repeat: Infinity, ease: "easeInOut", delay: i * 0.2 }
+            }}
+            className="p-4 bg-blue-500 text-white rounded-2xl shadow-xl shadow-blue-500/20"
+          >
+            <Icon size={24} />
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Status Labels */}
+      <div className="absolute bottom-8 left-8 flex flex-col">
+        <div className="flex items-center gap-2 mb-1">
+          <div className={`w-1.5 h-1.5 rounded-full ${!isAIActive ? 'bg-red-500 animate-pulse' : 'bg-slate-600'}`} />
+          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">System Status</span>
+        </div>
+        <span className={`text-xs font-bold transition-colors duration-500 ${!isAIActive ? 'text-red-400' : 'text-slate-500'}`}>
+          {isAIActive ? 'Optimized' : 'Inefficient / Manual'}
+        </span>
+      </div>
+    </div>
+  );
+};
+
+const ChaosToOrderV3 = () => {
+  const [level, setLevel] = useState(0);
+  const chaosIcons = [FileText, Mail, MessageSquare, Clock, AlertCircle];
+  const orderIcons = [Zap, TrendingUp, CheckCircle2, BarChart3, ShieldCheck];
+
+  // Derived values
+  const isAIActive = level > 50;
+  const opacityChaos = Math.max(0, (100 - level * 1.5) / 100);
+  const opacityOrder = Math.max(0, (level * 1.5 - 50) / 100);
+
+  return (
+    <div className="relative w-full h-full flex flex-col items-center justify-center overflow-hidden bg-slate-900 rounded-[40px] border border-white/10 shadow-2xl group cursor-default">
+      {/* Background Glow */}
+      <div 
+        className="absolute inset-0 transition-opacity duration-700" 
+        style={{ 
+          opacity: level / 100,
+          background: `radial-gradient(circle at center, rgba(59,130,246,0.15) 0%, transparent 70%)` 
+        }} 
+      />
+      
+      {/* Central Engine Area */}
+      <div className="relative z-20 flex flex-col items-center mb-12">
+        <motion.div 
+          animate={{ 
+            rotate: level * 3.6,
+            scale: 1 + (level / 1000),
+            borderColor: `rgba(59,130,246,${level / 100})`
+          }}
+          className="w-56 h-56 rounded-full border-2 border-dashed flex items-center justify-center relative"
+          style={{ borderColor: level > 10 ? undefined : 'rgba(255,255,255,0.05)' }}
+        >
+          {/* Inner Core */}
+          <div 
+            className="w-32 h-32 rounded-full blur-3xl absolute transition-all duration-500" 
+            style={{ 
+              backgroundColor: level > 50 ? '#3b82f6' : '#64748b',
+              opacity: (level / 200) + 0.05,
+              transform: `scale(${0.8 + (level / 100) * 0.5})`
+            }}
+          />
+          
+          <div className={`w-28 h-28 rounded-[32px] border flex flex-col items-center justify-center shadow-2xl relative z-10 transition-all duration-500 ${isAIActive ? 'bg-slate-800 border-blue-400/50' : 'bg-slate-900 border-white/5'}`}>
+            <BrainCircuit 
+              size={40} 
+              className="transition-colors duration-500" 
+              style={{ color: level > 20 ? `rgb(${59 + (level * 1.5)}, ${130 + (level * 0.5)}, 246)` : '#475569' }}
+            />
+            <div className="mt-2 flex flex-col items-center">
+              <span className="text-[8px] font-black uppercase tracking-widest text-slate-500">Power</span>
+              <span className="text-xs font-bold text-blue-400">{level}%</span>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Chaos Side (Left) */}
+      <div className="absolute left-0 w-1/3 h-full flex flex-wrap justify-center content-center gap-6 px-8 pointer-events-none" style={{ opacity: opacityChaos }}>
+        {chaosIcons.map((Icon, i) => (
+          <motion.div
+            key={`chaos-icon-${i}`}
+            animate={{ 
+              y: [0, 10, 0],
+              rotate: [0, 5, -5, 0]
+            }}
+            transition={{ 
+              duration: 4, 
+              repeat: Infinity, 
+              delay: i * 0.4,
+              ease: "easeInOut"
+            }}
+            className="p-3 rounded-xl border border-slate-700 bg-slate-800 text-slate-500"
+          >
+            <Icon size={20} />
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Order Side (Right) */}
+      <div className="absolute right-0 w-1/3 h-full flex flex-wrap justify-center content-center gap-6 px-8 pointer-events-none" style={{ opacity: opacityOrder }}>
+        {orderIcons.map((Icon, i) => (
+          <motion.div
+            key={`order-icon-${i}`}
+            className="p-4 bg-blue-500 text-white rounded-2xl shadow-xl shadow-blue-500/20"
+            style={{ transform: `scale(${Math.min(1, (level - 50) / 20)})` }}
+          >
+            <Icon size={24} />
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Interactive Slider UI */}
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 w-64 z-30">
+        <div className="flex justify-between mb-2 px-1">
+          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Manual</span>
+          <span className="text-[10px] font-bold text-blue-400 uppercase tracking-widest">AI-Native</span>
+        </div>
+        <input 
+          type="range" 
+          min="0" 
+          max="100" 
+          value={level} 
+          onChange={(e) => setLevel(parseInt(e.target.value))}
+          className="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-500"
+        />
+        <div className="text-center mt-4">
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">
+            {level < 30 ? "Operational Chaos" : level < 70 ? "Transformation in Progress" : "Full AI-Native Synergy"}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const ChaosToOrder = () => {
+  const chaosIcons = [FileText, Mail, MessageSquare, Clock, AlertCircle];
+  const orderIcons = [Zap, TrendingUp, BarChart3, ShieldCheck];
+
+  return (
+    <div className="relative w-full h-full flex items-center justify-center overflow-hidden bg-slate-950 rounded-[40px] border border-white/5 shadow-2xl">
+      {/* Background Grid */}
+      <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+      
+      {/* Chaos Flow (Converging from all sides of the left half) */}
+      <div className="absolute left-0 w-1/2 h-full">
+        {[...Array(12)].map((_, i) => {
+          const Icon = chaosIcons[i % chaosIcons.length];
+          const delay = i * 0.7;
+          const duration = 3 + Math.random() * 2;
+          
+          // Random starting point on the edges (left, top-left, bottom-left)
+          const side = Math.floor(Math.random() * 3);
+          let startX, startY;
+          if (side === 0) { startX = -20; startY = Math.random() * 100; } // Left
+          else if (side === 1) { startX = Math.random() * 40; startY = -20; } // Top-Left
+          else { startX = Math.random() * 40; startY = 120; } // Bottom-Left
+
+          return (
+            <motion.div
+              key={`chaos-${i}`}
+              initial={{ 
+                left: `${startX}%`, 
+                top: `${startY}%`, 
+                opacity: 0, 
+                scale: 0.4, 
+                rotate: Math.random() * 360 
+              }}
+              animate={{ 
+                left: "100%", 
+                top: "50%",    
+                opacity: [0, 1, 1, 0],
+                scale: [0.4, 1.1, 0.9, 0.2],
+                rotate: [null, Math.random() * 720]
+              }}
+              transition={{ 
+                duration: duration, 
+                repeat: Infinity, 
+                delay: delay,
+                ease: "circIn"
+              }}
+              className="absolute p-3 bg-red-700/90 border-2 border-red-500/50 rounded-2xl text-red-100 shadow-[0_0_25px_rgba(239,68,68,0.6)] z-10"
+            >
+              <Icon size={28} className="drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]" />
+            </motion.div>
+          );
+        })}
+      </div>
+
+      {/* Central AI Brain */}
+      <div className="relative z-20">
+        <motion.div
+          animate={{ 
+            scale: [1, 1.05, 1],
+            boxShadow: [
+              "0 0 20px rgba(59,130,246,0.2)",
+              "0 0 60px rgba(59,130,246,0.4)",
+              "0 0 20px rgba(59,130,246,0.2)"
+            ]
+          }}
+          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+          className="w-48 h-48 rounded-full border-2 border-blue-500/30 flex items-center justify-center relative bg-slate-900/80 backdrop-blur-md"
+        >
+          {/* Pulsing Rings */}
+          <motion.div 
+            animate={{ scale: [1, 1.6], opacity: [0.4, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
+            className="absolute inset-0 border border-blue-400/20 rounded-full"
+          />
+          
+          {/* Rotating Outer Ring */}
+          <motion.div 
+            animate={{ rotate: 360 }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+            className="absolute inset-1 border-2 border-dashed border-blue-400/10 rounded-full"
+          />
+
+          {/* Brain Core */}
+          <div className="relative z-10 flex flex-col items-center">
+            <motion.div
+              animate={{ 
+                opacity: [1, 0.8, 1],
+                filter: ["brightness(1)", "brightness(1.4)", "brightness(1)"]
+              }}
+              transition={{ duration: 0.8, repeat: Infinity, repeatType: "reverse" }}
+            >
+              <BrainCircuit size={64} className="text-blue-400 drop-shadow-[0_0_15px_rgba(96,165,250,0.6)]" />
+            </motion.div>
+            <div className="mt-2 text-[10px] font-black text-blue-400/40 uppercase tracking-[0.4em]">Processing</div>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Order Flow (Structured Conveyor) */}
+      <div className="absolute right-0 w-1/2 h-full flex items-center">
+        {[...Array(6)].map((_, i) => {
+          const Icon = orderIcons[i % orderIcons.length];
+          const delay = i * 1.8 + 1.5;
+          const duration = 6;
+
+          return (
+            <motion.div
+              key={`order-${i}`}
+              initial={{ x: -120, opacity: 0, scale: 0.9 }}
+              animate={{ 
+                x: [0, 500], 
+                opacity: [0, 1, 1, 0],
+                scale: [0.9, 1, 1, 0.9]
+              }}
+              transition={{ 
+                duration: duration, 
+                repeat: Infinity, 
+                delay: delay,
+                ease: "linear"
+              }}
+              className="absolute left-0 flex items-center"
+            >
+              <div className="relative p-4 bg-blue-600 text-white rounded-2xl shadow-2xl shadow-blue-500/20 flex items-center gap-4 border border-blue-400/30 group">
+                <Icon size={24} className="shrink-0" />
+                <div className="w-20 h-1.5 bg-white/20 rounded-full overflow-hidden">
+                  <motion.div 
+                    animate={{ x: ["-100%", "100%"] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                    className="w-full h-full bg-white/50"
+                  />
+                </div>
+                
+                {/* Aesthetic Checkmark */}
+                <motion.div
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: [0, 1.2, 1], opacity: 1 }}
+                  transition={{ delay: 0.4, duration: 0.5 }}
+                  className="absolute -top-3 -right-3 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center border-4 border-slate-950 shadow-lg"
+                >
+                  <CheckCircle2 size={16} className="text-white" />
+                </motion.div>
+              </div>
+            </motion.div>
+          );
+        })}
+      </div>
+
+      {/* Side Labels */}      <div className="absolute top-10 right-10 flex flex-col text-right">
+        <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest">Output</span>
+        <span className="text-xs font-bold text-green-500/40">Autonomous Value</span>
+      </div>
+    </div>
+  );
+};
+
+const CasesSection = () => {
+  const [selectedCase, setSelectedCase] = useState<any>(null);
+
+  const cases = [
+    {
+      id: 'case-01',
+      title: "AI-автоматизация обработки заказов для локальной кондитерской",
+      stack: "TELEGRAM BOT | OPENAI | GOOGLE SHEETS",
+      problem: "Небольшая кондитерская (3 точки) принимала заказы через WhatsApp и Telegram. Владелец тратил до 4 часов в день на уточнение начинок, дат и адресов. 15% заказов терялись или записывались с ошибками в Excel.",
+      solution: [
+        { label: "Бот-ассистент", text: "Разработан Telegram-бот с LLM, который понимает свободную речь. Клиент пишет: «Хочу торт на субботу, 2кг, с клубникой», бот сам уточняет детали и проверяет загрузку производства." },
+        { label: "Авто-учет", text: "Данные мгновенно попадают в Google Sheets и календарь пекаря. Бот сам выставляет счет через ЮKassa." }
+      ],
+      results: [
+        { value: "0 мин", label: "Времени владельца на прием заказа" },
+        { value: "+25%", label: "Рост выручки за счет скорости ответов" }
+      ],
+      icon: ShoppingBag,
+      color: "bg-pink-500"
+    },
+    {
+      id: 'case-02',
+      title: "Умная система лояльности для сети кофеен",
+      stack: "PYTHON | RFM-ANALYSIS | TELEGRAM",
+      problem: "Сеть кофеен (5 точек) имела бумажные карточки «6-й кофе в подарок». Владелец не знал своих клиентов, их предпочтения и частоту визитов. Возвращаемость (Retention) была низкой — около 30%.",
+      solution: [
+        { label: "Цифровой профиль", text: "Запуск Telegram-карты лояльности. Система собирает историю покупок и предпочтения (любимый сироп, время визита)." },
+        { label: "AI-рассылки", text: "ML-алгоритм сегментирует базу и отправляет пуши: «Давно не заходили, ваш любимый раф ждет вас со скидкой 20% только сегодня»." }
+      ],
+      results: [
+        { value: "+45%", label: "Рост Retention (возвращаемости)" },
+        { value: "+18%", label: "Увеличение среднего чека" }
+      ],
+      icon: Coffee,
+      color: "bg-amber-700"
+    },
+    {
+      id: 'case-03',
+      title: "Оптимизация товарных остатков для магазина одежды",
+      stack: "EXCEL AI | PROPHET | 1С",
+      problem: "Магазин одежды часто сталкивался с ситуацией: ходовые размеры заканчивались (lost sales), а непопулярные модели пылились на складе месяцами, замораживая оборотные средства.",
+      solution: [
+        { label: "Прогноз спроса", text: "ML-модель анализирует продажи прошлых периодов, сезонность и тренды, предсказывая необходимый объем закупа по каждой позиции." },
+        { label: "Авто-заказ", text: "Система формирует рекомендации для закупщика: что дозаказать, а на что сделать скидку для быстрой распродажи." }
+      ],
+      results: [
+        { value: "−20%", label: "Снижение излишков на складе" },
+        { value: "+12%", label: "Рост выручки за счет наличия ходовых позиций" }
+      ],
+      icon: Shirt,
+      color: "bg-blue-500"
+    },
+    {
+      id: 'case-04',
+      title: "Предиктивное обслуживание оборудования на металлургическом комбинате",
+      stack: "CATBOOST | IOT SENSORS | SCADA",
+      problem: "Металлургический комбинат с парком из 1 200 единиц оборудования терял до 18% производственной мощности из-за незапланированных простоев. Обслуживание велось по регламенту (time-based): замена узлов через фиксированные интервалы — независимо от реального состояния. Годовой бюджет ТОиР составлял 1,4 млрд ₽.",
+      solution: [
+        { label: "Мониторинг", text: "На критичное оборудование установлены вибро-, температурные и токовые датчики. Данные поступают в реальном времени через MQTT-шлюз. Для каждой единицы рассчитывается health score 0–100." },
+        { label: "Прогноз", text: "ML-модели (CatBoost + LSTM) рассчитывают Remaining Useful Life и определяют оптимальное окно для ремонта с учётом производственного плана. Модель обучена на 3 годах исторических данных." },
+        { label: "Интеграция", text: "Система интегрирована с MES и CMMS (1С:ТОИР). При детекции аномалии автоматически формируется наряд-заказ с описанием через LLM и рекомендацией запчастей." }
+      ],
+      results: [
+        { value: "−45%", label: "Снижение незапланированных простоев" },
+        { value: "280 млн ₽", label: "Экономия на ТОиР за первый год" }
+      ],
+      icon: Building2,
+      color: "bg-orange-600"
+    },
+    {
+      id: 'case-05',
+      title: "Динамическое ценообразование для федеральной торговой сети",
+      stack: "LIGHTGBM | PRICE PARSING | 1С-ТОРГОВЛЯ",
+      problem: "Торговая сеть (180 магазинов, 45 000 SKU) управляла ценами вручную через Excel. Категорийные менеджеры пересматривали прайс раз в 2–3 недели. Промо-акции планировались «по интуиции» — каждая третья давала ROI ниже нуля. Потери маржинальности — 5–8% от оборота.",
+      solution: [
+        { label: "Эластичность", text: "Для каждого SKU построена ML-модель ценовой эластичности спроса с учётом сезонности, дня недели, погоды и кросс-эластичности с товарами-заменителями." },
+        { label: "Конкуренты", text: "Ежедневный парсинг цен 12 конкурентов по 2 500 KVI-позициям. Система классифицирует движения (match / ignore / undercut) и корректирует ценовые индексы." },
+        { label: "Промо", text: "ML-прогноз uplift и ROI каждой механики (скидка, мультибай, кэшбек). Оптимизатор строит промо-календарь на квартал, исключая «промо-зависимые» SKU." }
+      ],
+      results: [
+        { value: "+4,2%", label: "Рост валовой маржинальности за 6 месяцев" },
+        { value: "×3", label: "Рост ROI промо-акций" }
+      ],
+      icon: TrendingUp,
+      color: "bg-blue-600"
+    },
+    {
+      id: 'case-06',
+      title: "AI-мониторинг охраны труда на строительной площадке",
+      stack: "YOLOV8 | EDGE COMPUTING | RTSP",
+      problem: "Крупный девелопер вёл 8 строительных площадок with общей численностью более 3 000 рабочих. Контроль СИЗ осуществлялся обходчиками 2–3 раза в день. Между обходами нарушения оставались незамеченными. За год — 14 инцидентов с травмами, LTIFR в 4 раза выше бенчмарка.",
+      solution: [
+        { label: "Детекция", text: "Развёрнута CV-система реального времени. 120+ камер подключены к edge-серверам с GPU. YOLOv8 детектирует: отсутствие каски, жилета, страховки; нахождение в запрещённых зонах. Точность >96%." },
+        { label: "Реакция", text: "При нарушении — мгновенный алерт прорабу в Telegram с фото и геолокацией камеры. Повторное нарушение — эскалация на инженера ОТ. Формируется акт с привязкой к подрядчику." },
+        { label: "Аналитика", text: "ML-модель предиктивного анализа инцидентов: на основе погоды, времени суток и типа работ прогнозирует зоны повышенного риска. Ежедневная «карта опасностей»." }
+      ],
+      results: [
+        { value: "−68%", label: "Снижение LTIFR (частоты травм)" },
+        { value: "2 сек", label: "Среднее время от нарушения до алерта" }
+      ],
+      icon: ShieldCheck,
+      color: "bg-emerald-600"
+    },
+    {
+      id: 'case-07',
+      title: "Автоматическая проверка проектной документации на соответствие НПА",
+      stack: "RAG | QDRANT | GIGACHAT",
+      problem: "Проектный институт (600+ инженеров) ежегодно выпускал более 200 комплектов документации. Проверка на соответствие 2 000+ СНиП, СП и ГОСТ выполнялась нормоконтролёрами вручную — 12 рабочих дней на проект. 35% замечаний госэкспертизы повторялись из проекта в проект.",
+      solution: [
+        { label: "База НПА", text: "2 400 нормативных документов проиндексированы в Qdrant. Автоматическое обновление при публикации новых редакций через парсинг Консультант+." },
+        { label: "Проверка", text: "LLM анализирует пояснительные записки, извлекает параметры и сопоставляет с требованиями НПА. Каждое замечание содержит ссылку на конкретный пункт нормативного документа." },
+        { label: "Обучение", text: "Система накапливает историю замечаний госэкспертизы. ML ранжирует несоответствия по вероятности получения замечания, фокусируя нормоконтролёра на критичных пунктах." }
+      ],
+      results: [
+        { value: "12→3 дня", label: "Сокращение цикла нормоконтроля проекта" },
+        { value: "−72%", label: "Снижение замечаний госэкспертизы" }
+      ],
+      icon: FileText,
+      color: "bg-slate-800"
+    },
+    {
+      id: 'case-08',
+      title: "ML-система управления дебиторской задолженностью дистрибьютора",
+      stack: "CATBOOST | NEURALPROPHET | 1С:ERP",
+      problem: "Федеральный дистрибьютор FMCG работал с 2 800 контрагентами. Просроченная ДЗ достигала 22% от общей (порядка 1,8 млрд ₽). Финансовая служба из 6 человек обзванивала должников вручную, начиная с крупнейших — мелкие годами оставались без внимания.",
+      solution: [
+        { label: "Скоринг", text: "ML-модель оценивает вероятность просрочки до отгрузки (1С + СПАРК + арбитражные дела). Рекомендует кредитный лимит и условия оплаты." },
+        { label: "Каскад", text: "Автоматическая персонализированная коммуникация: за 3 дня — мягкое напоминание; день просрочки — формальное письмо; 7 дней — звонок; 30 дней — претензия. Тон адаптируется через LLM." },
+        { label: "Cash-flow", text: "NeuralProphet строит прогноз поступлений на 90 дней с точностью >90%, детектирует кассовые разрывы и рекомендует факторинг." }
+      ],
+      results: [
+        { value: "−38%", label: "Снижение просроченной задолженности" },
+        { value: "420 млн ₽", label: "Высвобожденный оборотный капитал" }
+      ],
+      icon: Zap,
+      color: "bg-indigo-600"
+    },
+    {
+      id: 'case-09',
+      title: "AML-мониторинг нового поколения для регионального банка",
+      stack: "GRAPH NEURAL NETWORK | LLM | 115-ФЗ",
+      problem: "Банк из топ-50 использовал rule-based AML-систему: ~4 200 алертов/месяц, 96% ложноположительных. 15 аналитиков тратили по 40–50 минут на каждое расследование. Реальные схемы обнала проходили мимо — система не видела связей между контрагентами.",
+      solution: [
+        { label: "Детекция", text: "Multi-model ensemble: gradient boosting для аномальных транзакций + Graph Neural Network для дропперских сетей. NLP-анализ назначений платежей для детекции structuring и layering." },
+        { label: "Расследование", text: "LLM формирует investigation report: контекст из 10+ источников, генерация отчёта в формате СПО для Росфинмониторинга." },
+        { label: "Continuous KYC", text: "Динамический risk rating пересчитывается каждые 6 часов. Санкционный скрининг (SDN, EU, Росфинмониторинг) автоматизирован." }
+      ],
+      results: [
+        { value: "−74%", label: "Снижение ложных срабатываний" },
+        { value: "8 мин", label: "Время расследования вместо 45 минут" }
+      ],
+      icon: ShieldAlert,
+      color: "bg-red-800"
+    },
+    {
+      id: 'case-10',
+      title: "AI-ассистент для автогенерации коммерческих предложений в B2B",
+      stack: "RAG | QWEN2.5 | AMOCRM",
+      problem: "ИТ-интегратор с отделом продаж из 35 менеджеров обрабатывал ~400 запросов/месяц. Подготовка КП занимала 1,5–2 дня. До клиента КП доходило через 3–5 дней после контакта — 30% уходили к конкурентам.",
+      solution: [
+        { label: "Генерация КП", text: "LLM через RAG подбирает продукты из каталога, проверяет наличие и цены в ERP, формирует персонализированное КП с расчётом ROI для клиента." },
+        { label: "Персонализация", text: "Система анализирует сайт клиента, новости и отрасль, подбирает релевантные case studies и адаптирует аргументацию." },
+        { label: "Прогноз", text: "ML-модель оценивает вероятность закрытия сделки на основе профиля клиента, суммы и engagement-метрик. Pipeline forecast для VP Sales." }
+      ],
+      results: [
+        { value: "30 мин", label: "Время подготовки КП вместо 2 дней" },
+        { value: "+28%", label: "Рост конверсии из запроса в сделку" }
+      ],
+      icon: Presentation,
+      color: "bg-purple-600"
+    },
+    {
+      id: 'case-11',
+      title: "AI-скрайб: автоматизация медицинской документации в сети клиник",
+      stack: "SPEECH-TO-TEXT | NLP | МИС",
+      problem: "Сеть из 12 клиник, 280 врачей. Каждый тратил 35–40% времени на заполнение ЭМК. Результат — 6 пациентов в час вместо 9. Документация заполнялась «по памяти» после приёма с пропуском клинически значимых деталей.",
+      solution: [
+        { label: "Распознавание", text: "Speech-to-text с медицинским словарём (дообучен на 5 000 часах записей). Speaker diarization для разделения ролей. Точность терминов 97%." },
+        { label: "Документация", text: "LLM извлекает жалобы, анамнез, осмотр, назначения и формирует протокол по МКБ-10. Генерирует выписки и рецепты в формате ЕГИСЗ." },
+        { label: "Drug check", text: "Проверка совместимости назначенных препаратов с текущей терапией. При обнаружении взаимодействия — алерт врачу до подписания." }
+      ],
+      results: [
+        { value: "+40%", label: "Рост проходимости пациентов на врача" },
+        { value: "2 часа", label: "Высвобождено у врача ежедневно" }
+      ],
+      icon: Users,
+      color: "bg-cyan-600"
+    },
+    {
+      id: 'case-12',
+      title: "Оптимизация энергопотребления промышленного предприятия через RL",
+      stack: "REINFORCEMENT LEARNING | АСКУЭ | DIGITAL TWIN",
+      problem: "Химический завод с годовым энергопотреблением 6,2 млрд ₽. Операторы управляли режимами по регламентам 10-летней давности. Пиковые нагрузки приводили к штрафам. Удельное потребление на 18% выше отраслевого бенчмарка.",
+      solution: [
+        { label: "Мониторинг", text: "Интеграция с АСКУЭ (5 000+ точек учёта). Real-time Sankey-диаграмма энергопотоков. Автоматическая детекция аномалий потребления." },
+        { label: "Оптимизация", text: "RL-агент управляет распределением нагрузки между агрегатами, минимизируя SEC при соблюдении плана. Peak shaving — сдвиг энергоёмких операций за пределы пиковых тарифов." },
+        { label: "Закупка", text: "ML-прогноз потребления + оптимизация закупки на оптовом рынке электроэнергии с учётом погоды и тарифной сетки." }
+      ],
+      results: [
+        { value: "−14%", label: "Снижение удельного энергопотребления" },
+        { value: "870 млн ₽", label: "Годовая экономия на энергоресурсах" }
+      ],
+      icon: Zap,
+      color: "bg-emerald-700"
+    },
+    {
+      id: 'case-13',
+      title: "Цифровой муниципалитет: AI-обработка обращений граждан",
+      stack: "NLP CLASSIFICATION | RAG | 59-ФЗ",
+      problem: "Администрация города-миллионника: 18 000+ обращений/месяц. 23% направлялись в неправильный отдел. Среднее время ответа — 22 дня при нормативе 30 по 59-ФЗ. Типовые вопросы (ЖКХ, благоустройство) — 60% потока.",
+      solution: [
+        { label: "Классификация", text: "NLP-модель классифицирует обращения по 42 категориям и маршрутизирует в нужный отдел. Точность маршрутизации — 94%. Дублирующие обращения объединяются." },
+        { label: "Генерация ответов", text: "Для типовых обращений (60%) LLM через RAG генерирует проект ответа из базы постановлений и прецедентов. Оператор проверяет и отправляет." },
+        { label: "Контроль сроков", text: "Каскадные алерты по 59-ФЗ: за 7, 3 и 1 день до дедлайна. Автоматическая эскалация руководителю при просрочке." }
+      ],
+      results: [
+        { value: "22→7 дней", label: "Среднее время ответа на обращение" },
+        { value: "0%", label: "Просроченных обращений (было 12%)" }
+      ],
+      icon: Building2,
+      color: "bg-blue-800"
+    }
+  ];
+
+  return (
+    <section id="cases" className="py-24 bg-slate-950">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">
+            Реализованные <span className="text-blue-400">кейсы</span>
+          </h2>
+          <p className="text-lg text-slate-400 max-w-3xl">
+            AI-Native решения для различных отраслей: от тяжелой промышленности до GovTech. Реальный опыт внедрения и измеримые результаты.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {cases.map((c) => (
+            <motion.div
+              key={c.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              onClick={() => setSelectedCase(c)}
+              className="group cursor-pointer bg-slate-900/50 border border-slate-800 p-8 rounded-[40px] hover:bg-slate-800/80 hover:shadow-2xl hover:border-blue-900/50 transition-all duration-500 flex flex-col overflow-hidden relative"
+            >
+              {/* Фоновое свечение (Glow effect) */}
+              <div className="absolute -top-24 -right-24 w-48 h-48 bg-blue-600/5 blur-[80px] group-hover:bg-blue-600/10 transition-all duration-700" />
+              
+              <div className="flex items-start justify-between mb-8 relative z-10">
+                {/* НОВЫЙ ДИЗАЙН ИКОНКИ (Tech Core Style) */}
+                <div className="relative">
+                  {/* Мягкий пульсирующий нимб за иконкой */}
+                  <motion.div 
+                    animate={{ scale: [1, 1.15, 1], opacity: [0.1, 0.25, 0.1] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                    className={`absolute inset-[-12px] blur-2xl rounded-full ${c.color.replace('bg-', 'bg-')}/30`}
+                  />
+                  
+                  {/* Контейнер иконки */}
+                  <div className={`relative w-14 h-14 bg-slate-950 border border-slate-800 rounded-2xl flex items-center justify-center text-white shadow-2xl group-hover:border-blue-500/40 transition-colors duration-500`}>
+                    <c.icon size={28} strokeWidth={1.5} className="group-hover:text-blue-400 transition-colors" />
+                    
+                    {/* Технологические акценты по углам (Tesla Style) */}
+                    <div className="absolute -top-1 -left-1 w-2 h-2 border-t border-l border-blue-500/0 group-hover:border-blue-500/60 opacity-0 group-hover:opacity-100 transition-all duration-500" />
+                    <div className="absolute -bottom-1 -right-1 w-2 h-2 border-b border-r border-blue-500/0 group-hover:border-blue-500/60 opacity-0 group-hover:opacity-100 transition-all duration-500" />
+                  </div>
+                </div>
+
+                <div className="text-right">
+                  <span className="text-[10px] font-black text-slate-600 uppercase tracking-widest block mb-1">Case Study</span>
+                  <span className="text-xs font-bold text-blue-400 uppercase tracking-widest">{c.id.replace('-', '_').toUpperCase()}</span>
+                </div>
+              </div>
+
+              <h3 className="text-2xl font-bold text-white mb-4 leading-tight group-hover:text-blue-300 transition-colors relative z-10">
+                {c.title}
+              </h3>
+
+              <div className="text-[10px] font-bold text-slate-600 uppercase tracking-widest mb-6 border-b border-slate-800 pb-4">
+                {c.stack}
+              </div>
+
+              <div className="grid grid-cols-2 gap-4 mt-auto">
+                {c.results.map((res, i) => (
+                  <div key={i} className="p-4 bg-slate-800 rounded-2xl border border-slate-700">
+                    <div className="text-2xl font-black text-white mb-1">{res.value}</div>
+                    <div className="text-[10px] font-bold text-slate-400 uppercase leading-tight">{res.label}</div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      {/* Case Detail Modal */}
+      <AnimatePresence>
+        {selectedCase && (
+          <div className="fixed inset-0 z-[120] flex items-center justify-center p-4 md:p-6">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedCase(null)}
+              className="absolute inset-0 bg-slate-900/80 backdrop-blur-md"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 40 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 40 }}
+              className="relative w-full max-w-4xl bg-slate-950 rounded-[40px] shadow-2xl overflow-hidden flex flex-col max-h-[90vh] border border-slate-800"
+            >
+              {/* НОВАЯ ШАПКА МОДАЛКИ (Dark Tech Style) */}
+              <div className={`shrink-0 h-40 md:h-56 bg-slate-900 p-8 md:p-12 flex items-end justify-between relative overflow-hidden`}>
+                {/* Фоновое свечение в шапке */}
+                <div className={`absolute -top-32 -left-32 w-80 h-80 ${selectedCase.color.replace('bg-', 'bg-')}/10 blur-[100px]`} />
+                
+                <div className="flex items-center gap-6 relative z-10">
+                  {/* ИКОНКА В ШАПКЕ (Core Style) */}
+                  <div className="relative">
+                    <motion.div 
+                      animate={{ scale: [1, 1.2, 1], opacity: [0.15, 0.35, 0.15] }}
+                      transition={{ duration: 4, repeat: Infinity }}
+                      className={`absolute inset-[-15px] blur-2xl rounded-full ${selectedCase.color.replace('bg-', 'bg-')}/40`}
+                    />
+                    <div className="w-20 h-20 md:w-24 md:h-24 bg-slate-950 border border-slate-800 rounded-3xl flex items-center justify-center text-white backdrop-blur-xl shadow-2xl relative">
+                      <selectedCase.icon size={44} strokeWidth={1.5} className="md:w-12 md:h-12" />
+                      {/* Уголки (как на карточках) */}
+                      <div className="absolute -top-1 -left-1 w-3 h-3 border-t border-l border-blue-500/50" />
+                      <div className="absolute -bottom-1 -right-1 w-3 h-3 border-b border-r border-blue-500/50" />
+                    </div>
+                  </div>
+
+                  <div className="text-white">
+                    <div className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-400 mb-3">{selectedCase.id.replace('-', '_').toUpperCase()}</div>
+                    <h3 className="text-2xl md:text-4xl font-bold leading-tight max-w-2xl tracking-tight">{selectedCase.title}</h3>
+                  </div>
+                </div>
+
+                <button 
+                  onClick={() => setSelectedCase(null)}
+                  className="absolute top-8 right-8 w-12 h-12 bg-slate-950/50 rounded-full flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-800 transition-all border border-slate-800 backdrop-blur-md z-20"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+              
+              <div className="p-8 md:p-12 overflow-y-auto custom-scrollbar bg-slate-950">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                  <div className="lg:col-span-2 space-y-12">
+                    {/* Problem */}
+                    <section>
+                      <div className="flex items-center gap-4 mb-6">
+                        <div className="w-10 h-10 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center font-black text-sm">01</div>
+                        <h4 className="text-lg font-bold text-white uppercase tracking-[0.2em]">Проблема</h4>
+                      </div>
+                      <p className="text-lg text-slate-400 leading-relaxed pl-14 font-medium">
+                        {selectedCase.problem}
+                      </p>
+                    </section>
+
+                    {/* Solution */}
+                    <section>
+                      <div className="flex items-center gap-4 mb-8">
+                        <div className="w-10 h-10 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center font-black text-sm">02</div>
+                        <h4 className="text-lg font-bold text-white uppercase tracking-[0.2em]">Техническое решение</h4>
+                      </div>
+                      <div className="space-y-6 pl-14">
+                        {selectedCase.solution.map((step: any, i: number) => (
+                          <div key={i} className="relative pl-8 border-l border-slate-800 py-2">
+                            <div className="absolute -left-[5px] top-4 w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]" />
+                            <div className="font-bold text-slate-200 mb-2 flex items-center gap-3">
+                              <ArrowRight size={14} className="text-blue-500" />
+                              {step.label}
+                            </div>
+                            <p className="text-slate-500 leading-relaxed text-sm">{step.text}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </section>
+                  </div>
+
+                  <div className="space-y-8">
+                    {/* Results */}
+                    <section className="bg-slate-900/50 p-8 rounded-[40px] border border-slate-800 relative overflow-hidden">
+                      {/* Мягкий фон для результатов */}
+                      <div className={`absolute top-0 right-0 w-32 h-32 ${selectedCase.color.replace('bg-', 'bg-')}/5 blur-[60px]`} />
+                      
+                      <div className="flex items-center gap-4 mb-8 relative z-10">
+                        <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center font-black text-sm">03</div>
+                        <h4 className="text-lg font-bold text-white uppercase tracking-[0.2em]">Результат</h4>
+                      </div>
+                      <div className="space-y-6 relative z-10">
+                        {selectedCase.results.map((res: any, i: number) => (
+                          <div key={i} className="bg-slate-950/80 p-6 rounded-2xl border border-slate-800 shadow-xl group/res hover:border-emerald-500/30 transition-colors">
+                            <div className="text-4xl font-black text-white mb-2 tracking-tighter group-hover/res:text-emerald-400 transition-colors">{res.value}</div>
+                            <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest leading-tight">{res.label}</div>
+                          </div>
+                        ))}
+                      </div>
+                    </section>
+
+                    {/* Stack */}
+                    <section className="px-4">
+                      <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] mb-6">Технологический стек</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {selectedCase.stack.split('|').map((s: string, i: number) => (
+                          <span key={i} className="px-4 py-2 bg-slate-900 border border-slate-800 text-slate-400 rounded-xl text-[9px] font-bold uppercase tracking-widest hover:border-blue-500/30 transition-colors">
+                            {s.trim()}
+                          </span>
+                        ))}
+                      </div>
+                    </section>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+    </section>
+  );
+};
+
+const SolutionsHub = () => {
+  const [activeTab, setActiveTab] = useState('strategy');
+  const [selectedSolution, setSelectedSolution] = useState<any>(null);
+
+  const categories = [
+    { id: 'strategy', label: 'Стратегия', icon: BrainCircuit },
+    { id: 'business', label: 'Бизнес-функции', icon: Zap },
+    { id: 'industries', label: 'Отрасли', icon: Building2 }
+  ];
+
+  const solutions = [
+    // Strategy
+    {
+      id: 'native',
+      category: 'strategy',
+      title: "AI-Native Transformation",
+      subtitle: "Новая архитектура бизнеса",
+      content: "Переход от Human-Centric процессов к AI-Native организации, где ИИ-агенты являются основными исполнителями.",
+      icon: BrainCircuit,
+      color: "bg-slate-900",
+      details: ["Автономность 90%+", "Реакция в миллисекундах", "Нулевая стоимость транзакции"],
+      industry: "Кросс-отраслевой",
+      pain: "Традиционные компании не могут конкурировать по скорости и стоимости с AI-Native игроками. Процессы, завязанные на людях, масштабируются линейно и дорого.",
+      kpis: ["Рост производительности в 10-50 раз", "Снижение стоимости транзакции на 90%", "Автономность процессов 90%+"],
+      roi_detail: "10x+ на горизонте 3-5 лет. Полная перестройка экономики бизнеса и захват рынка.",
+      stack: "Multi-Agent Orchestration, Autonomous Agents, Real-time Data Fabric, LLM-OS",
+      agents: [
+        { name: "Orchestrator", task: "Главный мозг, распределяющий задачи между специализированными агентами." },
+        { name: "Quality Guard", task: "Агент, проверяющий корректность работы и compliance других агентов." },
+        { name: "Learning Agent", task: "Постоянно дообучает систему на новых данных и обратной связи от пользователей." }
+      ]
+    },
+    {
+      id: 'mas',
+      category: 'strategy',
+      title: "Мультиагентные Системы",
+      subtitle: "Цифровой оркестр специалистов",
+      content: "Сеть специализированных агентов (Аналитик, Контролер, Юрист), координируемых Агентом-Оркестратором.",
+      icon: Zap,
+      category_label: 'MAS',
+      color: "bg-blue-600",
+      details: ["LLM (GigaChat/Qwen)", "RAG (Qdrant)", "Оркестрация LangGraph"],
+      industry: "Кросс-отраслевой",
+      pain: "Сложные задачи требуют участия разных специалистов. Обычные чат-боты не справляются с многоэтапными процессами.",
+      kpis: ["Сокращение ошибок в сложных процессах на 80%", "Параллельное выполнение задач 24/7", "Масштабируемость без найма людей"],
+      roi_detail: "4.0x за 12 месяцев. Замена дорогостоящих аутсорсинговых функций.",
+      stack: "LangGraph, CrewAI, AutoGen, Vector DBs (Qdrant/Milvus), LangSmith",
+      agents: [
+        { name: "Researcher", task: "Глубокий поиск и анализ информации из внутренних и внешних источников." },
+        { name: "Critic", task: "Проверка гипотез, поиск логических ошибок и верификация результатов." },
+        { name: "Writer", task: "Формирование финальных отчетов, документов или кода в нужном стиле." },
+        { name: "Workflow Manager", task: "Координация последовательности выполнения задач и управление состоянием." }
+      ]
+    },
+    {
+      id: 'transformation-office',
+      category: 'strategy',
+      title: "Transformation Office",
+      subtitle: "Ускорение цифровизации",
+      content: "Сокращение time-to-transformation в 2 раза. Повышение доли успешных AI-инициатив до 75%.",
+      icon: TrendingUp,
+      color: "bg-blue-700",
+      details: ["Аудит AI-зрелости", "Генерация Roadmap", "Мониторинг Adoption Rate"],
+      industry: "Кросс-отраслевой (управленческий консалтинг + технологическая платформа)",
+      pain: "AI-трансформация занимает 18–36 месяцев, 70% инициатив не доходят до продакшна из-за отсутствия системного подхода.",
+      kpis: ["Сокращение time-to-transformation с 24 до 12 месяцев", "Повышение доли успешных AI-инициатив до 75%", "Снижение сопротивления изменениям (Adoption Rate >80%)"],
+      roi_detail: "5.0x за 24 месяца. Экономия 12+ месяцев потерянной ценности от AI.",
+      stack: "LLM (GigaChat 2 / Qwen2.5 / Claude), RAG (база прецедентов), ML (process mining — Celonis/PM4Py)",
+      agents: [
+        { name: "Diagnostic", task: "Аудит AI-зрелости по 5 измерениям (Данные, Технологии, Процессы, Люди, Стратегия)." },
+        { name: "Strategist", task: "Генерация AI-стратегии с финансовой моделью и 3-летним Roadmap." },
+        { name: "PMO", task: "Цифровой проектный офис: мониторинг статусов, KPI, рисков и вероятности провала." },
+        { name: "Change", task: "Управление изменениями: NLP-анализ коммуникаций, сегментация стейкхолдеров." }
+      ]
+    },
+    {
+      id: 'roi_total',
+      category: 'strategy',
+      title: "Экономический эффект",
+      subtitle: "Математика победы",
+      content: "Для компании с портфелем 50 млрд ₽ — предотвращение штрафов на 500 млн ₽/год. ROI 3.0x–5.0x.",
+      icon: BarChart3,
+      color: "bg-green-600",
+      details: ["Снижение OPEX 25-40%", "Высвобождение FTE 15-50", "Окупаемость от 5 месяцев"],
+      industry: "Кросс-отраслевой",
+      pain: "Неэффективное распределение ресурсов, скрытые потери в цепочках поставок, высокие операционные расходы.",
+      kpis: ["Снижение OPEX на 25–40%", "Высвобождение 15–50 FTE", "Окупаемость инвестиций от 5 месяцев"],
+      roi_detail: "3.0x–5.0x на горизонте 24 месяцев.",
+      stack: "ROI-калькулятор, ML-прогнозирование, финансовое моделирование",
+      agents: [
+        { name: "Экономист-аналитик", task: "Расчёт NPV, IRR и срока окупаемости для каждой AI-инициативы." },
+        { name: "Бенчмаркинг-агент", task: "Сопоставление показателей компании с отраслевыми лидерами и лучшими практиками." }
+      ]
+    },
+    {
+      id: 'supply-chain',
+      category: 'industries',
+      title: "Цепочки поставок",
+      subtitle: "AI-логистика",
+      content: "Оптимизация от прогнозирования спроса до логистики «последней мили».",
+      icon: Truck,
+      color: "bg-orange-700",
+      details: ["Прогноз спроса", "Управление запасами", "VRP-оптимизация"],
+      industry: "Ритейл, производство, дистрибьюция",
+      pain: "Заморозка 20–35% оборотного капитала в запасах. Потери 3–6% выручки на out-of-stock.",
+      kpis: ["Снижение запасов на 15–25%", "Out-of-stock <2%", "Точность прогноза 85%+"],
+      roi_detail: "3.5x за 12 месяцев. Сокращение логистических затрат на 10–15%.",
+      stack: "ML (probabilistic forecast), VRP-алгоритмы, GPS-трекинг, LLM",
+      agents: [
+        { name: "Прогнозист спроса", task: "Иерархические ML-модели с 50+ фичами (сезонность, погода, тренды)." },
+        { name: "Менеджер запасов", task: "Расчёт заказов с constraints (MOQ, кратность), multi-echelon optimization." },
+        { name: "Логист-оптимизатор", task: "VRP-оптимизация маршрутов, консолидация заказов, GPS-трекинг ETA." },
+        { name: "Supply Chain Orchestrator", task: "End-to-end координация, exception handling, S&OP планирование." }
+      ]
+    },
+    {
+      id: 'roadmap',
+      category: 'strategy',
+      title: "Дорожная Карта",
+      subtitle: "4 шага к AI-Native",
+      content: "Диагностика (2-4 нед) → Стратегия (4-6 нед) → Пилот (8-12 нед) → Масштабирование (6-18 мес).",
+      icon: Clock,
+      color: "bg-blue-500",
+      details: ["Без слома текущей IT", "Поэтапный запуск", "Обучение команды"],
+      industry: "Кросс-отраслевой",
+      pain: "Отсутствие четкого плана внедрения, риск выбора неверных технологий, сопротивление персонала.",
+      kpis: ["Соблюдение сроков этапов 95%+", "Выход на окупаемость пилота <6 мес", "Adoption Rate >80%"],
+      roi_detail: "Минимизация рисков провала AI-проектов (стоимость которых может достигать десятков млн ₽).",
+      stack: "Методология AI-Transformation, Change Management Framework",
+      agents: [
+        { name: "Roadmap-агент", task: "Генерация детального плана внедрения с учетом специфики ИТ-ландшафта." },
+        { name: "Риск-контролер", task: "Идентификация барьеров внедрения на каждом этапе и предложение мер по их устранению." }
+      ]
+    },
+    // Business
+    {
+      id: 'portfolio',
+      category: 'business',
+      title: "Управление портфелем",
+      subtitle: "Контроль контрактов",
+      content: "Снижение бюджетных отклонений на 25–40%. Сокращение цикла согласования актов с 14 до 3 дней.",
+      icon: FileSearch,
+      color: "bg-slate-800",
+      details: ["ML-прогноз отклонений", "Анализ отчетов через LLM", "Composite Risk Score"],
+      industry: "Строительство, нефтегаз, металлургия, ритейл, ИТ-интеграторы",
+      pain: "Крупные компании ведут сотни контрактов, теряя 3–8% бюджета на неконтролируемых перерасходах и штрафах.",
+      kpis: ["Снижение бюджетных отклонений на 25–40%", "Сокращение цикла согласования актов с 14 до 3 дней", "Рост взыскания штрафных санкций на 60%"],
+      roi_detail: "3.5x за 18 месяцев. Экономия 150–400 млн ₽ для портфеля 5 млрд ₽.",
+      stack: "LLM (GigaChat 2 / Qwen2.5), RAG (Qdrant + LangChain), ML (CatBoost), OCR (Yandex Vision)",
+      agents: [
+        { name: "Портфельный аналитик", task: "Агрегация данных из ERP/ПМ, ML-прогноз отклонений (EVM), выявление рисков." },
+        { name: "Бюджетный контроль", task: "Детекция аномалий в платежах (>5%), проверка счетов через RAG на соответствие контракту." },
+        { name: "Штрафные санкции", task: "NLP-парсинг penalty-матриц, автогенерация претензионных писем." },
+        { name: "Ресурсное планирование", task: "Моделирование сценариев «что если», оптимизация распределения ресурсов." }
+      ]
+    },
+    {
+      id: 'cashflow',
+      category: 'business',
+      title: "Дебиторка и Cash-Flow",
+      subtitle: "Финансовая устойчивость",
+      content: "Снижение просроченной задолженности на 30–50%. Высвобождение до 600 млн ₽ капитала.",
+      icon: BarChart3,
+      color: "bg-green-700",
+      details: ["ML-скоринг дебиторов", "Авто-претензионная работа", "Детекция кассовых разрывов"],
+      industry: "Дистрибьюция, оптовая торговля, телеком, лизинг, производство",
+      pain: "До 15–25% оборотного капитала замораживается в просроченной ДЗ, ручная работа не позволяет охватить тысячи должников.",
+      kpis: ["Снижение просроченной ДЗ на 30–50%", "Сокращение DSO на 15–25 дней", "Точность cash-flow прогноза 90%+"],
+      roi_detail: "4.0x за 12 месяцев. Высвобождение 300–600 млн ₽ для ДЗ 2 млрд ₽.",
+      stack: "LLM (GigaChat 2), ML (CatBoost, Prophet), Интеграции 1С/SAP, CRM (Bitrix24/amoCRM)",
+      agents: [
+        { name: "Кредитный скоринг", task: "ML-скоринг на основе внутренних и внешних данных (СПАРК, арбитраж)." },
+        { name: "Мониторинг и коллекшн", task: "Классификация по aging buckets, персонализированная стратегия коммуникации через LLM." },
+        { name: "Сверка и реконсиляция", task: "Автоматический matching «счёт ↔ платёж ↔ отгрузка ↔ акт»." },
+        { name: "Cash-flow прогнозирование", task: "ML-модель на горизонте 7/30/60/90 дней, детекция кассовых разрывов." }
+      ]
+    },
+    {
+      id: 'compliance',
+      category: 'business',
+      title: "Комплаенс и Аудит",
+      subtitle: "Минимизация рисков",
+      content: "100% покрытие нормативных изменений. Снижение штрафов на 70%. Сокращение трудозатрат на 40%.",
+      icon: ShieldCheck,
+      color: "bg-indigo-600",
+      details: ["Парсинг НПА", "Антикоррупционный скрининг", "Real-time Heat Map"],
+      industry: "Банки, страхование, фармацевтика, нефтегаз, госкорпорации",
+      pain: "300+ значимых нормативных изменений в год для крупного холдинга. Штрафы до 5% оборота, риск отзыва лицензий.",
+      kpis: ["100% покрытие регуляторных изменений", "Адаптация политик с 45 до 10 дней", "Снижение штрафов на 70%"],
+      roi_detail: "3.0x за 18 месяцев. Предотвращение штрафов на 200–500 млн ₽/год.",
+      stack: "LLM, NLP, RAG (база политик + НПА), ML (Isolation Forest), Консультант+/Гарант API",
+      agents: [
+        { name: "Регуляторный мониторинг", task: "Непрерывный парсинг НПА, impact assessment через LLM, авто-создание задач." },
+        { name: "Внутренний аудит", task: "Continuous auditing: транзакционный анализ, детекция дробления и аффилированности." },
+        { name: "Антикоррупционный контроль", task: "Скрининг (SDN, EU, UN), проверка аффилированности, мониторинг «красных флагов»." },
+        { name: "ESG и охрана труда", task: "Интеграция с АСУ ТП, HR и EHS, ESG-отчётность GRI/SASB/TCFD." }
+      ]
+    },
+    {
+      id: 'memory',
+      category: 'business',
+      title: "Корпоративная Память",
+      subtitle: "Система «Супер-память»",
+      content: "Превращение разрозненных документов в единый мозг компании. Поиск информации быстрее на 80%.",
+      icon: Search,
+      color: "bg-slate-700",
+      details: ["Семантический поиск", "Автогенерация регламентов", "Онбординг-наставник"],
+      industry: "Все компании от 100+ сотрудников",
+      pain: "Сотрудники тратят 20–30% времени на поиск информации. При увольнении экспертов компания теряет знания.",
+      kpis: ["Сокращение времени поиска на 80%", "Сохранение 90% критических знаний", "Сокращение времени онбординга на 40%"],
+      roi_detail: "2.5x за 12 месяцев. Экономия 15 000+ часов/год на поиске информации.",
+      stack: "LLM, RAG (10 000+ документов), Vector Search, Knowledge Graph (Neo4j), NLP",
+      agents: [
+        { name: "Семантический поиск", task: "Естественно-языковой запрос к 10 000+ документам всех форматов (docx, pdf, xlsx, email)." },
+        { name: "Аудит коммуникаций", task: "Анализ 100% переписки на compliance-риски и утечки конфиденциальной информации." },
+        { name: "Генерация политик", task: "Авто-создание и обновление регламентов на основе лучших практик и НПА." },
+        { name: "Извлечение экспертизы", task: "LLM-интервью с увольняющимися экспертами для формализации неявных знаний." }
+      ]
+    },
+    {
+      id: 'hr',
+      category: 'business',
+      title: "HR и Таланты",
+      subtitle: "Управление капиталом",
+      content: "Снижение time-to-hire на 60%. Сокращение текучки на 25%. Экономия 200+ часов HR в месяц.",
+      icon: Users,
+      color: "bg-pink-600",
+      details: ["AI-скрининг резюме", "Прогноз риска увольнения", "Персональное обучение"],
+      industry: "Все компании от 50+ сотрудников",
+      pain: "40% времени HR — рутина. Текучка стоит компании 1–2 годовых оклада на одного ушедшего.",
+      kpis: ["Снижение time-to-hire на 60%", "Снижение текучки на 25%", "Рост eNPS на 15 пунктов"],
+      roi_detail: "3.2x за 18 месяцев. Экономия на рекрутерах и стоимости текучки.",
+      stack: "LLM, ML (churn prediction), NLP (анализ резюме), CV (анализ видеоинтервью), RAG",
+      agents: [
+        { name: "Подбор (Scout)", task: "NLP-парсинг 15+ источников (hh.ru, LinkedIn), автоматический скрининг резюме." },
+        { name: "Интервьюер", task: "Проведение первичных структурированных интервью (текст/голос) с оценкой soft skills." },
+        { name: "Онбординг (Buddy)", task: "Персональный план адаптации 24/7, ответы на вопросы по базе знаний." },
+        { name: "Удержание (Keeper)", task: "ML-прогноз риска увольнения по активности в системах и тональности переписки." }
+      ]
+    },
+    {
+      id: 'sales',
+      category: 'business',
+      title: "B2B Продажи",
+      subtitle: "Revenue Operations",
+      content: "Рост конверсии на 35%. Подготовка КП за 30 минут вместо 3 дней. ROI 4.5x.",
+      icon: TrendingUp,
+      color: "bg-emerald-600",
+      details: ["Генерация лидов", "Авто-подготовка КП", "AI-ассистент"],
+      industry: "ИТ, промышленность, сервисные компании, дистрибьюция",
+      pain: "70% лидов умирает между маркетингом и продажами. КП готовятся 2–3 дня вместо 30 минут.",
+      kpis: ["Рост conversion rate на 35%", "Сокращение цикла сделки на 40%", "Точность прогноза pipeline до 85%"],
+      roi_detail: "4.5x за 12 месяцев. Рост выручки без роста штата продаж.",
+      stack: "LLM, ML (ICP scoring), NLP (анализ звонков), RAG (база успешных сделок), CRM",
+      agents: [
+        { name: "Генерация лидов (Hunter)", task: "Скрапинг и обогащение данных о компаниях, формирование qualified lead list." },
+        { name: "Подготовка КП (Preparer)", task: "Автогенерация КП из шаблонов + real-time данные из ERP, персонализация под клиента." },
+        { name: "Переговорщик (Negotiator)", task: "Real-time assistance менеджеру при звонке, авто-формирование follow-up плана." },
+        { name: "Прогнозирование (Forecaster)", task: "Predictive pipeline: ML-оценка вероятности закрытия каждой сделки." }
+      ]
+    },
+    {
+      id: 'marketing',
+      category: 'business',
+      title: "Маркетинг и Контент",
+      subtitle: "AI-креатив и аналитика",
+      content: "Снижение стоимости лида (CPL) на 30–50%. Генерация контента в 10 раз быстрее.",
+      icon: Presentation,
+      color: "bg-purple-600",
+      details: ["AI-генерация контента", "Media Buying", "SEO-оптимизация"],
+      industry: "Кросс-отраслевой",
+      pain: "Высокая стоимость привлечения, выгорание креативных команд, сложность персонализации на масштабе.",
+      kpis: ["Снижение CPL на 30–50%", "Рост ROI маркетинговых кампаний на 40%", "Сокращение времени на production контента на 90%"],
+      roi_detail: "4.5x за 12 месяцев. Экономия на агентствах и рост эффективности рекламы.",
+      stack: "LLM (GPT-4o/Claude), Diffusion Models (Midjourney/Stable Diffusion), ML (LTV prediction)",
+      agents: [
+        { name: "Content Generator", task: "Создание текстов, постов, сценариев и баннеров под узкие сегменты аудитории." },
+        { name: "Media Buyer", task: "Оптимизация ставок и бюджетов в реальном времени, A/B тестирование креативов." },
+        { name: "SEO-агент", task: "Автоматическая оптимизация семантики, генерация мета-данных и перелинковка." },
+        { name: "Аналитик трендов", task: "Мониторинг рынка и конкурентов для поиска новых углов атаки и инсайтов." }
+      ]
+    },
+    {
+      id: 'customer-service',
+      category: 'business',
+      title: "Клиентский сервис",
+      subtitle: "AI-поддержка 24/7",
+      content: "Автоматизация 70–90% запросов. Снижение времени ответа до 5 секунд. Рост CSAT на 20%.",
+      icon: MessageSquare,
+      color: "bg-cyan-700",
+      details: ["AI-чатботы", "Triage запросов", "Анализ тональности"],
+      industry: "Ритейл, банки, телеком, сервисные компании",
+      pain: "Высокая стоимость колл-центра, долгое ожидание ответа, низкий CSAT из-за человеческого фактора.",
+      kpis: ["Автоматизация (Deflection Rate) 70–90%", "Снижение стоимости обращения в 5–10 раз", "Рост CSAT на 20%"],
+      roi_detail: "5.0x за 12 месяцев. Радикальное снижение затрат на поддержку при росте качества.",
+      stack: "LLM, RAG (база знаний), Speech-to-Text / Text-to-Speech, Интеграция с Helpdesk",
+      agents: [
+        { name: "Support Agent", task: "Ответы на вопросы по базе знаний, решение простых тикетов, помощь в навигации." },
+        { name: "Triage Agent", task: "Классификация и мгновенная маршрутизация сложных запросов на профильных экспертов." },
+        { name: "Sentiment Analyst", task: "Мониторинг тональности в реальном времени и детекция негатива для эскалации." },
+        { name: "Quality Control", task: "Автоматическая проверка 100% диалогов на соблюдение скриптов и вежливость." }
+      ]
+    },
+    {
+      id: 'legal',
+      category: 'business',
+      title: "Юридическая функция",
+      subtitle: "AI-юрист",
+      content: "Анализ 100-страничного договора за 2 минуты. Выявление 95% скрытых рисков. Ускорение в 3 раза.",
+      icon: ShieldCheck,
+      color: "bg-slate-600",
+      details: ["Анализ договоров", "Risk Detection", "Template Generator"],
+      industry: "Кросс-отраслевой",
+      pain: "Юристы перегружены рутиной, риск пропуска критических условий в договорах, долгие циклы согласования.",
+      kpis: ["Сокращение времени проверки договоров на 80%", "100% покрытие типовых рисков", "Ускорение согласования в 3 раза"],
+      roi_detail: "3.5x за 18 месяцев. Снижение юридических рисков и ускорение бизнес-процессов.",
+      stack: "LLM, RAG (база политик), NLP (entity extraction), Knowledge Graph",
+      agents: [
+        { name: "Contract Reviewer", task: "Анализ договоров на соответствие чек-листу и внутренним политикам компании." },
+        { name: "Risk Detector", task: "Поиск «подводных камней», скрытых штрафов и невыгодных условий для компании." },
+        { name: "Template Generator", task: "Авто-сборка сложных документов из конструктора на основе вводного ТЗ." },
+        { name: "Litigation Assistant", task: "Поиск судебной практики и подготовка первичных правовых позиций." }
+      ]
+    },
+    {
+      id: 'it-dev',
+      category: 'business',
+      title: "ИТ и Разработка",
+      subtitle: "AI-Native Development",
+      content: "Ускорение разработки в 2-3 раза. Автоматическое покрытие тестами 90%+. Снижение техдолга.",
+      icon: Zap,
+      color: "bg-slate-900",
+      details: ["Code Generation", "Auto-QA", "Legacy Migration"],
+      industry: "Кросс-отраслевой",
+      pain: "Дефицит разработчиков, высокая стоимость legacy-кода, медленный time-to-market и ошибки в архитектуре.",
+      kpis: ["Ускорение разработки на 150%", "Снижение багов в продакшне на 40%", "Сокращение времени на документацию на 90%"],
+      roi_detail: "3.0x за 12 месяцев. Сокращение затрат на поддержку и ускорение выпуска новых фич.",
+      stack: "GitHub Copilot, Cursor, LLM (Claude 3.5 Sonnet), LangChain, Docker",
+      agents: [
+        { name: "Code Generator", task: "Написание кода по ТЗ, рефакторинг и миграция legacy-систем на современные стеки." },
+        { name: "QA-агент", task: "Автогенерация и запуск тестов, поиск уязвимостей и дефектов логики." },
+        { name: "DevOps-агент", task: "Оптимизация CI/CD пайплайнов, мониторинг инфраструктуры и авто-скейлинг." },
+        { name: "Doc-агент", task: "Поддержание актуальности технической документации и API-спецификаций." }
+      ]
+    },
+    // Industries
+    {
+      id: 'retail',
+      category: 'industries',
+      title: "Ритейл и Торговля",
+      subtitle: "Динамическое управление",
+      content: "Рост валовой маржи на 3–7%. Снижение out-of-stock на 25–40%. Оптимизация логистики.",
+      icon: Building2,
+      color: "bg-orange-600",
+      details: ["Эластичность спроса", "Визуальный мерчандайзинг", "360° портрет покупателя"],
+      industry: "Торговые сети, e-commerce",
+      pain: "Управление 10 000–500 000 SKU, потеря до 5–12% маржи из-за неоптимальных цен и промо.",
+      kpis: ["Рост валовой маржи на 3–7%", "Снижение out-of-stock на 25–40%", "Снижение dead stock на 30%"],
+      roi_detail: "4.0x за 12 месяцев. Рост маржи на 1.5–3.5 млрд ₽ для сети с оборотом 50 млрд ₽.",
+      stack: "LLM, ML (LightGBM — эластичность, Prophet — прогнозирование), RAG, CV",
+      agents: [
+        { name: "Ценовой аналитик", task: "ML-модели ценовой эластичности по каждому SKU, расчёт оптимальной цены." },
+        { name: "Конкурентный мониторинг", task: "Парсинг цен конкурентов, кластеризация, рекомендации (match / ignore / undercut)." },
+        { name: "Ассортиментное управление", task: "ML-кластеризация ролей SKU (traffic builder / margin maker), market gap analysis." },
+        { name: "Визуальный мерчандайзинг", task: "CV-анализ выкладки товара на полках, детекция пустых полок и нарушений." }
+      ]
+    },
+    {
+      id: 'manufacturing',
+      category: 'industries',
+      title: "Производство",
+      subtitle: "Индустрия 4.0",
+      content: "Снижение простоев на 40–60%. Сокращение брака на 30–50%. Предиктивное обслуживание.",
+      icon: Zap,
+      color: "bg-slate-900",
+      details: ["IoT-мониторинг", "Цифровые двойники", "Оптимизация планирования"],
+      industry: "Тяжелая промышленность, машиностроение, FMCG-производство",
+      pain: "Незапланированные простои — 5–20% потерь выручки. Брак — 3–8% выручки.",
+      kpis: ["Снижение простоев на 40–60%", "Сокращение брака на 30–50%", "Рост OEE на 10–15%"],
+      roi_detail: "4.5x за 18 месяцев. Экономия 200–300 млн ₽ для предприятия с ТОиР-бюджетом 1 млрд ₽.",
+      stack: "IoT-сенсоры, ML (health score), Digital Twin, CV (YOLOv8), NLP",
+      agents: [
+        { name: "Мониторинг состояния", task: "IoT-сенсоры, ML-детекция аномалий, health score 0–100 для каждой единицы оборудования." },
+        { name: "Прогнозирование отказов", task: "Remaining Useful Life, оптимальное окно для ремонта, учёт производственного плана." },
+        { name: "Визуальный контроль", task: "CV-инспекция (YOLOv8/RT-DETR), точность >98%, детекция брака в реальном времени." },
+        { name: "Цифровой двойник", task: "Симуляция «what-if» сценариев на виртуальной модели перед изменениями в производстве." }
+      ]
+    },
+    {
+      id: 'construction',
+      category: 'industries',
+      title: "Строительство",
+      subtitle: "BIM и Безопасность",
+      content: "Снижение перерасхода с 30% до 10%. 100% детекция нарушений СИЗ на площадке.",
+      icon: PenTool,
+      color: "bg-yellow-600",
+      details: ["BIM-аудит коллизий", "Drone/CV мониторинг", "Анализ инцидентов"],
+      industry: "Промышленное и гражданское строительство, девелопмент",
+      pain: "Перерасход бюджета до 30%, задержки сроков, высокие риски травматизма на площадке.",
+      kpis: ["Снижение перерасхода с 30% до 10%", "90% BIM-коллизий выявляется автоматически", "100% детекция нарушений СИЗ"],
+      roi_detail: "3.5x за 18 месяцев. Значительное снижение страховых рисков и штрафов.",
+      stack: "BIM, Drone/CV, ML (прогноз инцидентов), IoT, NLP (анализ актов)",
+      agents: [
+        { name: "BIM-аналитик", task: "Clash detection, нормоконтроль проектных решений через BIM." },
+        { name: "Агент прогресса", task: "CV-мониторинг прогресса с drone/CV, сопоставление с графиком работ." },
+        { name: "Контроль безопасности", task: "CV-мониторинг нарушений СИЗ, предиктивный анализ инцидентов, авто-инструктажи." },
+        { name: "Сметный контроль", task: "Автоматическая проверка актов (КС-2/КС-3), детекция аномалий в объемах." }
+      ]
+    },
+    {
+      id: 'fintech',
+      category: 'industries',
+      title: "Финансовый сектор",
+      subtitle: "Кредитный конвейер",
+      content: "Решение по кредиту за 15 минут. Снижение False Positive в AML на 60–80%.",
+      icon: Shield,
+      color: "bg-blue-900",
+      details: ["Graph ML фрод-детекция", "Robo-advisory", "Сетевой анализ связей"],
+      industry: "Банки, МФО, финтех-стартапы",
+      pain: "40–50% времени андеррайтеров — сбор данных. Высокий уровень False Positive в AML (95–98%).",
+      kpis: ["Решение по кредиту за 15 мин", "Снижение False Positive в AML на 60–80%", "Approval rate +10–15%"],
+      roi_detail: "4.2x за 12 месяцев. Снижение операционных расходов на 40%.",
+      stack: "Ensemble ML, Graph ML, NLP, LLM-investigation report, GNN",
+      agents: [
+        { name: "Андеррайтер", task: "Сбор и верификация из 15+ источников, ensemble ML скоринг, SHAP-интерпретация." },
+        { name: "Фрод-мониторинг", task: "Graph ML (fraud rings), детекция поведенческих паттернов и документного фрода." },
+        { name: "AML-аналитик", task: "Сетевой анализ (GNN), детекция схем (structuring, layering), авто-расследования." },
+        { name: "Robo-advisory", task: "Персональный финансовый советник: goal-based investing, ребалансировка портфеля." }
+      ]
+    },
+    {
+      id: 'healthcare',
+      category: 'industries',
+      title: "Healthcare и Фарма",
+      subtitle: "Цифровая медицина",
+      content: "Освобождение 2 часов/день у врача. Снижение ошибок в документации на 80%.",
+      icon: CheckCircle2,
+      color: "bg-cyan-600",
+      details: ["Speech-to-text (Scribe)", "Диагностическая поддержка", "Оптимизация расписания"],
+      industry: "Клиники, стационары, фармкомпании",
+      pain: "Врачи тратят 40% времени на заполнение документации. 15% диагнозов — ошибки из-за усталости.",
+      kpis: ["Освобождение 2 часов/день у врача", "Снижение ошибок в документации на 80%", "Рост проходимости на 30%"],
+      roi_detail: "2.8x за 24 месяца. Оптимизация штата и рост выручки.",
+      stack: "LLM, NLP (speech-to-text), Computer Vision (анализ МРТ/рентгена), ML (triaging)",
+      agents: [
+        { name: "Scribe", task: "Автоматическое заполнение ЭМК из разговора врача и пациента (speech-to-text + NLP)." },
+        { name: "Triage", task: "Предварительная оценка симптомов через чат/голос, приоритизация очереди по urgency score." },
+        { name: "Diagnostician", task: "Поддержка принятия решений: анализ результатов исследований, drug interaction checker." },
+        { name: "Scheduler", task: "Оптимизация расписания врачей, минимизация окон, прогноз нагрузки по дням." }
+      ]
+    },
+    {
+      id: 'funds',
+      category: 'industries',
+      title: "Фонды и Инвестиции",
+      subtitle: "Smart Capital",
+      content: "Автоматизация deal flow, мониторинг портфельных компаний и LP-отношений.",
+      icon: BarChart3,
+      color: "bg-indigo-900",
+      details: ["Скрининг сделок", "LP-отчетность", "Стресс-тестирование"],
+      industry: "PE/VC фонды, семейные офисы, инвест-банки",
+      pain: "60–70% времени аналитиков — рутина. Невидимые tail risks в портфеле. 30–40% времени партнеров на fundraising.",
+      kpis: ["Deal flow coverage +200%", "Скрининг с 5 дней до 4 часов", "LP-отчётность -60% времени"],
+      roi_detail: "3.0x за 18 месяцев. Предотвращение штрафов и рост hit rate на 20–30%.",
+      stack: "LLM, RAG, ML (Isolation Forest), GAN-сценарии, GRC-платформы",
+      agents: [
+        { name: "Скрининг-агент", task: "Мониторинг источников, pre-screening, investment teaser (2000 → 200 → 50 deep dive)." },
+        { name: "Due Diligence", task: "Автообработка data room (100–500 документов), финансовый анализ, оценка DCF." },
+        { name: "Риск-менеджер", task: "Real-time расчёт рыночных рисков, стресс-тестирование по GAN-сценариям." },
+        { name: "LP-комплаенс", task: "Автоматизация LP-отчётности, персонализация fundraising, narrative commentary." }
+      ]
+    },
+    {
+      id: 'design-org',
+      category: 'industries',
+      title: "Проектные организации",
+      subtitle: "AI-проектировщик",
+      content: "Автоматическая проверка документации на соответствие 2000+ НПА и нормоконтроль.",
+      icon: PenTool,
+      color: "bg-slate-800",
+      details: ["Проверка чертежей", "Управление ресурсами", "База знаний"],
+      industry: "Проектные институты, архитектурные бюро",
+      pain: "Замечания госэкспертизы (60–80%). Ошибки junior-специалистов (-50% знаний). Низкая утилизация ресурсов.",
+      kpis: ["Экспертиза с 15 до 3 дней", "Нормоконтроль -70% времени", "Утилизация ресурсов 80–85%"],
+      roi_detail: "2.5x за 12 месяцев. Сохранение 90% знаний и переиспользование 60% решений.",
+      stack: "RAG по СНиП/СП/ГОСТ, Computer Vision (чертежи), LLM (анализ ТЗ), ML (прогноз трудоёмкости)",
+      agents: [
+        { name: "Эксперт-проверщик", task: "Проверка соответствия 2000+ НПА, анализ чертежей через CV, трекинг замечаний." },
+        { name: "Ресурсный менеджер", task: "Прогнозирование трудоёмкости через ML, оптимизация загрузки специалистов." },
+        { name: "AI-ассистент", task: "Извлечение знаний из legacy-документации, каталог типовых решений." },
+        { name: "Оркестратор", task: "Межраздельная координация и управление изменениями в проекте." }
+      ]
+    },
+    {
+      id: 'industrial-safety',
+      category: 'industries',
+      title: "Промышленная безопасность",
+      subtitle: "Zero Harm AI",
+      content: "Энергоэффективность, экологический мониторинг и безопасность ОПО.",
+      icon: Shield,
+      color: "bg-emerald-900",
+      details: ["Энергоаудит", "ESG-compliance", "Мониторинг ОПО"],
+      industry: "Металлургия, химия, энергетика, добыча",
+      pain: "Высокое удельное потребление энергии. Штрафы за экологию. Риски аварий на ОПО.",
+      kpis: ["Снижение энергозатрат на 10–20%", "100% compliance КЭР", "Аварийность -50–70%"],
+      roi_detail: "3.0x–4.0x за 18-24 месяца. Экономия до 1.2 млрд ₽/год на энергозатратах.",
+      stack: "IoT, RL (оптимизация режимов), Digital Twin, NLP (анализ инцидентов), Computer Vision",
+      agents: [
+        { name: "Энерго-оптимизатор", task: "Real-time учёт, оптимизация режимов оборудования через RL, закупка на оптовом рынке." },
+        { name: "Эко-мониторинг", task: "Непрерывный мониторинг выбросов, управление отходами, carbon accounting." },
+        { name: "Безопасность ОПО", task: "Мониторинг техсостояния через IoT, моделирование аварийных сценариев (Digital Twin)." },
+        { name: "ESG-оркестратор", task: "Интеграция метрик ESG, отчетность ISO 50001, M&V по ISO 50015." }
+      ]
+    },
+    {
+      id: 'govtech',
+      category: 'industries',
+      title: "GovTech и Город",
+      subtitle: "Цифровой муниципалитет",
+      content: "Автоматизация обработки обращений граждан и оптимизация городского хозяйства.",
+      icon: Building2,
+      color: "bg-blue-800",
+      details: ["Обработка обращений", "Госзакупки", "Городское хозяйство"],
+      industry: "Государственное и муниципальное управление",
+      pain: "300+ часов на обработку сложного обращения. Госзакупки — 40% времени на ТЗ. Сроки ответа 20–30 дней.",
+      kpis: ["Время ответа -70%", "Подготовка ТЗ -50%", "Удовлетворенность граждан +25%"],
+      roi_detail: "2.5x за 24 месяца. Высокий средний чек (50–200 млн ₽ на регион).",
+      stack: "LLM, NLP (классификация), RAG (база НПА), OCR/CV, ML (оптимизация маршрутов)",
+      agents: [
+        { name: "Омбудсмен", task: "NLP-классификация обращений (ЖКХ, транспорт), генерация ответов из базы решений." },
+        { name: "Госзакупки", task: "Проверка ТЗ на коррупционные риски, подбор поставщиков, формирование документации." },
+        { name: "CityOps", task: "Обработка обращений по ЖКХ, маршрутизация бригад, контроль исполнения по фото (CV)." },
+        { name: "Администратор", task: "Единый dashboard для главы администрации: satisfaction, сроки, бюджет." }
+      ]
+    },
+    {
+      id: 'proptech',
+      category: 'industries',
+      title: "Недвижимость и PropTech",
+      subtitle: "AI-управление активами",
+      content: "Автоматизация оценки, аренды и эксплуатации коммерческой недвижимости.",
+      icon: Home,
+      color: "bg-slate-900",
+      details: ["Оценка активов", "Управление арендой", "Предиктивная эксплуатация"],
+      industry: "Девелопмент, управление коммерческой и жилой недвижимостью",
+      pain: "30% времени — рутина с арендаторами. Простои в аренде — 15–20% потери дохода. Рост расходов на эксплуатацию.",
+      kpis: ["Снижение vacancy rate на 25%", "Рост арендного дохода на 8–12%", "Time-to-lease -40%"],
+      roi_detail: "3.0x за 18 месяцев. Снижение эксплуатационных расходов на 15%.",
+      stack: "ML (AVM, demand forecasting), LLM (договоры), Computer Vision (туры), IoT (HVAC)",
+      agents: [
+        { name: "Valuer", task: "Автоматическая оценка на основе рыночных данных, локации и инфраструктуры." },
+        { name: "Leasing", task: "Автоматическая коммуникация с арендаторами, скоринг потенциальных арендаторов." },
+        { name: "Facility", task: "Предиктивное обслуживание инженерных систем (HVAC, лифты), оптимизация энергоэффективности." },
+        { name: "Marketer", task: "LLM-генерация описаний, виртуальные туры из фото, автопубликация на площадках." }
+      ]
+    },
+    {
+      id: 'aml-fraud',
+      category: 'industries',
+      title: "AML и Фрод-мониторинг",
+      subtitle: "Финансовая безопасность",
+      content: "Снижение False Positive на 60–80%. Детекция сложных схем отмывания через Graph ML.",
+      icon: ShieldAlert,
+      color: "bg-red-900",
+      details: ["Graph ML", "Сетевой анализ", "Авто-расследования"],
+      industry: "Банки, финтех, платежные системы",
+      pain: "95–98% срабатываний AML — ложные. Огромный штат аналитиков на ручную проверку.",
+      kpis: ["False Positive -60–80%", "Скорость расследования +300%", "Точность детекции схем 90%+"],
+      roi_detail: "4.0x за 12 месяцев. Снижение ФОТ комплаенс-отдела на 40%.",
+      stack: "Graph Neural Networks (GNN), NLP, LLM, Isolation Forest",
+      agents: [
+        { name: "Сетевой аналитик", task: "Выявление скрытых связей и групп (fraud rings) через графовый анализ." },
+        { name: "AML-следователь", task: "Сбор досье на клиента из 20+ источников, генерация narrative report для регулятора." },
+        { name: "Детектор аномалий", task: "Real-time мониторинг транзакций на предмет нетипичного поведения." }
+      ]
+    },
+    {
+      id: 'quality-control',
+      category: 'industries',
+      title: "Контроль качества",
+      subtitle: "Zero Defect",
+      content: "CV-инспекция брака с точностью 99%+. Снижение рекламаций на 40–60%.",
+      icon: Search,
+      color: "bg-blue-950",
+      details: ["CV-инспекция", "Traceability", "Анализ причин"],
+      industry: "Машиностроение, электроника, пищевая пром.",
+      pain: "Человеческий фактор при визуальном контроле. Высокая стоимость брака, доходящего до клиента.",
+      kpis: ["Точность детекции брака 99%+", "Снижение рекламаций на 50%", "Скорость инспекции +500%"],
+      roi_detail: "3.5x за 18 месяцев. Предотвращение репутационных и финансовых потерь.",
+      stack: "Computer Vision (YOLOv8, RT-DETR), Edge AI, ML",
+      agents: [
+        { name: "Визуальный инспектор", task: "Потоковый анализ видео с камер, детекция дефектов в реальном времени." },
+        { name: "Аналитик брака", task: "Корреляция дефектов с параметрами техпроцесса для выявления корневых причин." },
+        { name: "Traceability-агент", task: "Сквозной трекинг каждой единицы продукции от сырья до склада." }
+      ]
+    },
+    {
+      id: 'production-planning',
+      category: 'industries',
+      title: "Планирование производства",
+      subtitle: "AI-диспетчер",
+      content: "Оптимизация производственных графиков с учетом 100+ ограничений в реальном времени.",
+      icon: Zap,
+      color: "bg-slate-800",
+      details: ["APS-оптимизация", "Сценарное моделирование", "Синхронизация цехов"],
+      industry: "Машиностроение, металлообработка, дискретное производство",
+      pain: "Сложность перепланирования при сбоях. Низкая оборачиваемость НЗП. Несоблюдение сроков заказов.",
+      kpis: ["Сокращение цикла производства на 20–30%", "Снижение НЗП на 25%", "Соблюдение сроков (OTIF) 98%+"],
+      roi_detail: "4.0x за 12 месяцев. Рост пропускной способности без капвложений.",
+      stack: "Constraint Programming, ML (lead time prediction), Genetic Algorithms",
+      agents: [
+        { name: "Диспетчер-планировщик", task: "Автоматическая генерация сменно-суточных заданий, оптимизация загрузки станков." },
+        { name: "Синхронизатор", task: "Межцеховая координация, управление материальными потоками, детекция узких мест." },
+        { name: "Прогнозист сроков", task: "ML-расчёт реальных сроков готовности заказа с учётом текущей загрузки." }
+      ]
+    }
+  ];
+
+  const filteredSolutions = solutions.filter(s => s.category === activeTab);
+
+  return (
+    <section id="solutions-hub" className="py-24 bg-slate-50 relative overflow-hidden">
+      {/* Декоративный элемент фона */}
+      <div className="absolute top-0 left-0 w-full h-full opacity-[0.03] pointer-events-none">
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-blue-500 blur-[120px]" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-indigo-500 blur-[120px]" />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+          <div className="max-w-2xl">
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tight">
+              Интерактивный хаб <span className="text-blue-600">AI-решений</span>
+            </h2>
+            <p className="text-lg text-slate-500 leading-relaxed font-medium">
+              Исследуйте полный спектр наших возможностей: от фундаментальной стратегии до глубоких отраслевых вертикалей.
+            </p>
+          </div>
+          
+          {/* ТАБЫ (Minimalist Pill Style) */}
+          <div className="flex bg-white p-1.5 rounded-2xl border border-slate-200 shadow-sm self-start md:self-end">
+            {categories.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setActiveTab(cat.id)}
+                className={`flex items-center gap-2.5 px-6 py-3 rounded-xl text-sm font-bold transition-all duration-300 ${
+                  activeTab === cat.id 
+                    ? 'bg-slate-900 text-white shadow-lg' 
+                    : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
+                }`}
+              >
+                <cat.icon size={18} strokeWidth={activeTab === cat.id ? 2 : 1.5} />
+                {cat.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <AnimatePresence mode="popLayout">
+            {filteredSolutions.map((sol) => (
+              <motion.div
+                layout
+                key={sol.id}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.3 }}
+                onClick={() => setSelectedSolution(sol)}
+                className="group p-10 bg-white rounded-[40px] border border-slate-200/60 hover:border-blue-500/30 hover:shadow-[0_32px_64px_-16px_rgba(0,0,0,0.08)] transition-all duration-500 cursor-pointer flex flex-col h-full relative overflow-hidden"
+              >
+                {/* Едва заметный градиент при ховере */}
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-50/0 to-indigo-50/0 group-hover:from-blue-50/40 group-hover:to-indigo-50/40 transition-all duration-500" />
+                
+                <div className="relative z-10 flex flex-col h-full">
+                  {/* ИКОНКА (Minimalist Ghost Style) */}
+                  <div className="w-14 h-14 bg-slate-50 rounded-2xl flex items-center justify-center text-slate-400 mb-8 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500 shadow-inner">
+                    <sol.icon size={28} strokeWidth={1.5} />
+                  </div>
+                  
+                  <div className="mb-6">
+                    <h3 className="text-2xl font-bold text-slate-900 mb-2 tracking-tight group-hover:text-blue-700 transition-colors">{sol.title}</h3>
+                    <div className="text-[10px] font-black text-blue-600 uppercase tracking-widest">{sol.subtitle || 'Solution Architecture'}</div>
+                  </div>
+                  
+                  <p className="text-slate-500 text-sm leading-relaxed mb-8 font-medium">
+                    {sol.content}
+                  </p>
+                  
+                  <div className="mt-auto pt-6 border-t border-slate-50 flex items-center justify-between">
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{sol.industry}</span>
+                    <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-300 group-hover:bg-blue-50 group-hover:text-blue-600 transition-all">
+                      <ArrowRight size={16} />
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </div>
+      </div>
+
+      {/* Detail Modal (Light Minimalist) */}
+      <AnimatePresence>
+        {selectedSolution && (
+          <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 md:p-6 text-slate-900">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedSolution(null)}
+              className="absolute inset-0 bg-slate-900/40 backdrop-blur-md"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="relative w-full max-w-4xl bg-white rounded-[40px] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.2)] overflow-hidden flex flex-col max-h-[90vh] border border-slate-200"
+            >
+              {/* ШАПКА МОДАЛКИ (Light Tech) */}
+              <div className="shrink-0 h-32 md:h-44 bg-slate-50 p-8 md:p-10 flex items-end justify-between relative overflow-hidden border-b border-slate-100">
+                {/* Фоновое свечение (едва заметное) */}
+                <div className="absolute top-[-50%] left-[-10%] w-[60%] h-[150%] rounded-full bg-blue-500/5 blur-[80px]" />
+                
+                <div className="flex items-center gap-6 relative z-10">
+                  <div className="w-16 h-16 md:w-20 md:h-20 bg-white border border-slate-200 rounded-2xl md:rounded-3xl flex items-center justify-center text-blue-600 shadow-sm relative">
+                    <selectedSolution.icon size={32} strokeWidth={1.5} className="md:w-10 md:h-10" />
+                    {/* Точка активности */}
+                    <div className="absolute top-2 right-2 w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.5)]" />
+                  </div>
+                  <div>
+                    <div className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-600 mb-2">{selectedSolution.category_label || 'Architecture'}</div>
+                    <h3 className="text-2xl md:text-4xl font-bold tracking-tight">{selectedSolution.title}</h3>
+                  </div>
+                </div>
+
+                <button 
+                  onClick={() => setSelectedSolution(null)}
+                  className="absolute top-6 right-6 w-10 h-10 bg-white rounded-full flex items-center justify-center text-slate-400 hover:text-slate-900 hover:shadow-lg transition-all border border-slate-200 z-20"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+              
+              <div className="p-8 md:p-12 overflow-y-auto custom-scrollbar bg-white">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                  <div className="lg:col-span-2 space-y-10">
+                    {/* Description Section */}
+                    <div>
+                      <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">Суть решения</h4>
+                      <p className="text-xl text-slate-700 leading-relaxed font-medium">
+                        {selectedSolution.content}
+                      </p>
+                    </div>
+
+                    {/* Problem/Pain Section */}
+                    {selectedSolution.pain && (
+                      <div className="bg-slate-50 p-8 rounded-3xl border border-slate-100">
+                        <h4 className="text-[10px] font-black text-red-500 uppercase tracking-[0.2em] mb-4">Бизнес-боль</h4>
+                        <p className="text-slate-600 leading-relaxed">{selectedSolution.pain}</p>
+                      </div>
+                    )}
+
+                    {/* Agents Section */}
+                    {selectedSolution.agents && (
+                      <div>
+                        <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-6">Автономные AI-агенты</h4>
+                        <div className="grid grid-cols-1 gap-4">
+                          {selectedSolution.agents.map((agent: any, idx: number) => (
+                            <div key={idx} className="group/agent p-6 bg-white border border-slate-100 rounded-2xl hover:border-blue-200 hover:shadow-md transition-all duration-300">
+                              <div className="flex items-center gap-4 mb-2">
+                                <div className="w-2 h-2 rounded-full bg-blue-500 opacity-40 group-hover/agent:opacity-100 transition-opacity" />
+                                <div className="font-bold text-slate-900">{agent.name}</div>
+                              </div>
+                              <div className="text-slate-500 text-sm leading-relaxed pl-6">{agent.task}</div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="space-y-8">
+                    {/* Metrics Section */}
+                    <section className="bg-blue-600 p-8 rounded-[40px] text-white shadow-xl shadow-blue-100 relative overflow-hidden">
+                      {/* Декор для метрик */}
+                      <div className="absolute top-[-20%] right-[-20%] w-32 h-32 bg-white/10 rounded-full blur-2xl" />
+                      
+                      <h4 className="text-[10px] font-black text-white/60 uppercase tracking-[0.2em] mb-8 relative z-10">Целевые KPI</h4>
+                      <div className="space-y-6 relative z-10">
+                        {selectedSolution.kpis && selectedSolution.kpis.map((kpi: string, i: number) => (
+                          <div key={i} className="flex items-start gap-3">
+                            <div className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center mt-0.5 shrink-0">
+                              <ArrowRight size={10} className="text-white" />
+                            </div>
+                            <span className="text-sm font-bold leading-tight">{kpi}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      <div className="mt-10 pt-8 border-t border-white/10">
+                        <div className="text-[10px] font-black text-white/60 uppercase tracking-[0.2em] mb-2">Экономика</div>
+                        <div className="text-lg font-black leading-tight">{selectedSolution.roi_detail}</div>
+                      </div>
+                    </section>
+
+                    {/* Stack Section */}
+                    <section className="px-4">
+                      <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">Технологии</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {selectedSolution.stack.split(',').map((s: string, i: number) => (
+                          <span key={i} className="px-3 py-1.5 bg-slate-100 text-slate-600 rounded-lg text-[10px] font-bold uppercase tracking-widest">
+                            {s.trim()}
+                          </span>
+                        ))}
+                      </div>
+                    </section>
+                  </div>
+                </div>
+              </div>
+
+              <div className="shrink-0 p-8 bg-slate-50 border-t border-slate-100 flex gap-4">
+                <button 
+                  onClick={() => setSelectedSolution(null)}
+                  className="flex-1 h-14 rounded-2xl font-bold bg-slate-900 text-white hover:bg-slate-800 hover:shadow-xl transition-all flex items-center justify-center gap-2"
+                >
+                  Обсудить внедрение
+                </button>
+                <button 
+                  onClick={() => setSelectedSolution(null)}
+                  className="px-8 h-14 rounded-2xl font-bold bg-white border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all"
+                >
+                  Закрыть
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+    </section>
+  );
+};
+
+
+// --- Main App ---
+
+export default function App() {
+  return (
+    <div className="min-h-screen bg-white font-sans text-slate-900 selection:bg-slate-900 selection:text-white">
+      <Navbar />
+
+      {/* Hero Section */}
+      <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 rounded-full text-xs font-bold text-slate-600 mb-8 uppercase tracking-widest">
+              <Zap size={14} className="text-slate-900" />
+              AI Transformation Advisory
+            </div>
+            <h1 className="text-5xl md:text-7xl font-bold text-slate-900 mb-8 leading-[1.1] tracking-tight">
+              От Human-Centric к <span className="text-slate-400">AI-Native</span> организации.
+            </h1>
+            <p className="text-xl text-slate-600 mb-10 leading-relaxed max-w-xl">
+              Переводим бизнес-процессы на автономные AI-системы. Быстро, измеримо, без слома инфраструктуры.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <a href="#contact" className="bg-slate-900 text-white px-8 py-4 rounded-2xl font-bold text-lg hover:bg-slate-800 transition-all shadow-xl shadow-slate-200">
+                Записаться на аудит
+              </a>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="relative"
+          >
+            <div className="relative z-10 aspect-square md:aspect-video">
+               <ChaosToOrder />
+            </div>
+            {/* Background elements */}
+            <div className="absolute -top-20 -right-20 w-64 h-64 bg-blue-100 rounded-full blur-3xl opacity-50" />
+            <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-slate-100 rounded-full blur-3xl opacity-50" />
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Maturity Model Section */}
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-slate-900 mb-4 tracking-tight">Где находится ваш бизнес?</h2>
+            <p className="text-slate-500 max-w-2xl mx-auto">Большинство компаний застревают на первой стадии, инвестируя в AI, но не получая отдачи из-за старой архитектуры.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+            <MaturityStep 
+              level="Stage 01"
+              title="Digital Aware"
+              status="Текущая"
+              desc="ИИ воспринимается как игрушка или угроза. Данные разрознены в Excel. Люди — ручные исполнители. ROI < 0.5x."
+            />
+            <MaturityStep 
+              level="Stage 02"
+              title="AI Ready"
+              status="Переходная"
+              desc="ИИ используется как инструмент (Co-pilot). Есть централизованные данные. Люди — операторы ИИ. ROI 1.5–2.5x."
+            />
+            <MaturityStep 
+              level="Stage 03"
+              title="AI Native"
+              status="Целевая"
+              current={true}
+              desc="Процессы построены для ИИ с нуля. Автономные агенты делают 90% работы. Люди — стратеги и дирижеры. ROI 3.0–5.0x+."
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* The Problem Section */}
+      <section id="problem" className="py-24 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+            <div>
+              <div className="text-[120px] font-black text-slate-200 leading-none mb-4">85%</div>
+              <h2 className="text-4xl font-bold text-slate-900 mb-8 tracking-tight">
+                Почему ИИ-инициативы умирают?
+              </h2>
+              <p className="text-lg text-slate-600 mb-8 leading-relaxed">
+                85% корпоративных ИИ-проектов никогда не доходят до стадии производства. Проблема не в алгоритмах. Проблема в попытке встроить миллисекундные технологии в процессы, где решения принимаются неделями.
+              </p>
+              <div className="space-y-6">
+                <div className="flex gap-4 p-6 bg-white rounded-2xl border border-slate-100 shadow-sm">
+                  <div className="w-12 h-12 bg-red-50 text-red-500 rounded-xl flex items-center justify-center shrink-0">
+                    <AlertTriangle size={24} />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-slate-900 mb-1">Парадокс телеги</h4>
+                    <p className="text-sm text-slate-500">Компании покупают двигатели от болидов F1, но ставят их в деревянные телеги ручного управления.</p>
+                  </div>
+                </div>
+                <div className="flex gap-4 p-6 bg-white rounded-2xl border border-slate-100 shadow-sm">
+                  <div className="w-12 h-12 bg-slate-900 text-white rounded-xl flex items-center justify-center shrink-0">
+                    <Clock size={24} />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-slate-900 mb-1">Узкое место — физиология</h4>
+                    <p className="text-sm text-slate-500">Скорость бизнеса ограничена тем, насколько быстро один уставший сотрудник может прочитать информацию с экрана.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="relative">
+               <div className="bg-white p-10 rounded-[40px] shadow-xl border border-slate-100">
+                  <div className="text-center mb-10">
+                     <div className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Три стадии эволюции</div>
+                     <div className="flex items-center justify-between relative">
+                        <div className="absolute top-1/2 left-0 right-0 h-1 bg-slate-100 -translate-y-1/2 z-0" />
+                        <div className="relative z-10 w-4 h-4 bg-slate-300 rounded-full" />
+                        <div className="relative z-10 w-4 h-4 bg-slate-300 rounded-full" />
+                        <div className="relative z-10 w-6 h-6 bg-slate-900 rounded-full ring-4 ring-slate-100" />
+                     </div>
+                  </div>
+                  <div className="space-y-8">
+                     <div className="opacity-40 grayscale">
+                        <div className="flex items-center gap-3 mb-2">
+                           <span className="text-xs font-bold text-slate-900">1. Digital Aware</span>
+                           <span className="text-[10px] bg-slate-100 px-2 py-0.5 rounded text-slate-500 uppercase font-bold">Текущая</span>
+                        </div>
+                        <p className="text-xs text-slate-500">ИИ = игрушка. Данные разрознены. Человек делает всё руками.</p>
+                     </div>
+                     <div className="opacity-60 grayscale">
+                        <div className="flex items-center gap-3 mb-2">
+                           <span className="text-xs font-bold text-slate-900">2. AI Ready</span>
+                           <span className="text-[10px] bg-slate-100 px-2 py-0.5 rounded text-slate-500 uppercase font-bold">Переходная</span>
+                        </div>
+                        <p className="text-xs text-slate-500">ИИ = инструмент (Co-pilot). Человек — оператор, утверждающий решения.</p>
+                     </div>
+                     <div className="p-6 bg-slate-900 rounded-2xl text-white">
+                        <div className="flex items-center gap-3 mb-2">
+                           <span className="text-xs font-bold">3. AI Native</span>
+                           <span className="text-[10px] bg-white/20 px-2 py-0.5 rounded text-white uppercase font-bold">Целевая</span>
+                        </div>
+                        <p className="text-xs text-slate-300">Процессы автономны. Мультиагентные системы делают 90% работы. Человек — стратег и дирижер.</p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Approach Section */}
+      <section className="py-24 bg-slate-900 text-white overflow-hidden relative">
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+            >
+              <h2 className="text-4xl font-bold mb-8 tracking-tight">Наше главное отличие</h2>
+              <p className="text-xl text-slate-400 mb-10 leading-relaxed">
+                AI без понимания бизнеса — дорогая игрушка. Мы не просто IT-компания, мы бизнес-консультанты, которые сначала исправляют процессы, а потом внедряют интеллект.
+              </p>
+              <div className="space-y-8">
+                <div className="flex gap-6">
+                  <div className="w-12 h-12 bg-blue-500 rounded-2xl flex items-center justify-center shrink-0 font-bold">1</div>
+                  <div>
+                    <h4 className="text-xl font-bold mb-2">Аудит e2e процесса</h4>
+                    <p className="text-slate-400 text-sm">Находим, где реально теряются время и деньги. Картируем цепочки создания ценности.</p>
+                  </div>
+                </div>
+                <div className="flex gap-6">
+                  <div className="w-12 h-12 bg-blue-500 rounded-2xl flex items-center justify-center shrink-0 font-bold">2</div>
+                  <div>
+                    <h4 className="text-xl font-bold mb-2">Исправление архитектуры</h4>
+                    <p className="text-slate-400 text-sm">Устраняем операционные барьеры. Готовим данные (Data Lake, DQ &gt; 90%).</p>
+                  </div>
+                </div>
+                <div className="flex gap-6">
+                  <div className="w-12 h-12 bg-blue-500 rounded-2xl flex items-center justify-center shrink-0 font-bold">3</div>
+                  <div>
+                    <h4 className="text-xl font-bold mb-2">Внедрение AI-Native</h4>
+                    <p className="text-slate-400 text-sm">Запускаем автономных агентов with жесткими «бортиками» (Guardrails) для исключения галлюцинаций.</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+            <div className="relative">
+              <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-10 rounded-[40px] shadow-2xl">
+                <div className="text-center mb-8">
+                  <div className="text-5xl font-bold text-blue-400 mb-2">ROI 140%</div>
+                  <div className="text-xs font-bold text-slate-500 uppercase tracking-widest">за первый год внедрения</div>
+                </div>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-end">
+                    <div className="text-xs text-slate-400">Месяц 1</div>
+                    <div className="h-4 w-1 bg-blue-500/20 rounded-full" />
+                  </div>
+                  <div className="flex justify-between items-end">
+                    <div className="text-xs text-slate-400">Месяц 3</div>
+                    <div className="h-12 w-1 bg-blue-500/40 rounded-full" />
+                  </div>
+                  <div className="flex justify-between items-end">
+                    <div className="text-xs text-slate-400 font-bold text-blue-400">Месяц 5</div>
+                    <div className="h-24 w-1 bg-blue-400 rounded-full shadow-[0_0_15px_rgba(96,165,250,0.5)]" />
+                  </div>
+                  <div className="text-center pt-4">
+                    <div className="text-sm font-bold text-white">Точка безубыточности</div>
+                    <p className="text-[10px] text-slate-500 uppercase tracking-widest mt-1">Окупаемость инвестиций</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Economics Section */}
+      <section className="py-24">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-slate-900 mb-4 tracking-tight">Экономика AI-Native систем</h2>
+            <p className="text-slate-500 max-w-2xl mx-auto">Реальные показатели из нашего каталога внедрений. ROI достигает 5.0x на горизонте 24 месяцев.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <StatCard 
+              icon={TrendingDown}
+              trend="down"
+              label="Снижение бюджетных отклонений"
+              value="25-40%"
+              sub="За счет ML-прогнозирования (EVM) и автоматического выявления рисковых сигналов в отчетах."
+            />
+            <StatCard 
+              icon={TrendingUp}
+              trend="up"
+              label="Рост взыскания штрафов"
+              value="+60%"
+              sub="Агенты парсят контракты и автоматически генерируют претензионные письма с юридическим обоснованием."
+            />
+            <StatCard 
+              icon={Zap}
+              trend="up"
+              label="Ускорение процессов"
+              value="в 4-5 раз"
+              sub="Сокращение цикла согласования актов с 14 до 3 дней. Скрининг документов за 4 часа вместо 5 дней."
+            />
+          </div>
+        </div>
+      </section>
+
+      <SolutionsHub />
+      
+      {/* Roadmap Section */}
+      <section id="roadmap" className="py-24 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-slate-900 mb-4 tracking-tight">Дорожная карта трансформации</h2>
+            <p className="text-slate-500">Невидимый экзоскелет, а не пересадка сердца. Мы не ломаем текущую IT-инфраструктуру.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 relative">
+            <div className="hidden md:block absolute top-12 left-0 right-0 h-0.5 bg-slate-200 z-0" />
+            {[
+              { step: "01", title: "Диагностика", time: "2-4 нед.", desc: "Поиск «бутылочных горлышек» и оценка готовности данных." },
+              { step: "02", title: "Стратегия", time: "4-6 нед.", desc: "Создание целевой AI-архитектуры и финансовой модели (ROI)." },
+              { step: "03", title: "Пилот", time: "8-12 нед.", desc: "Запуск первого ИИ-агента без слома текущей инфраструктуры." },
+              { step: "04", title: "Масштабирование", time: "6-18 мес.", desc: "Перевод успешных решений на всю компанию. Переход к AI-Native." }
+            ].map((item, idx) => (
+              <div key={idx} className="relative z-10 bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition-all">
+                <div className="w-10 h-10 bg-slate-900 text-white rounded-xl flex items-center justify-center font-bold mb-6">{item.step}</div>
+                <h4 className="font-bold text-slate-900 mb-1">{item.title}</h4>
+                <div className="text-xs font-bold text-blue-600 uppercase tracking-wider mb-4">{item.time}</div>
+                <p className="text-sm text-slate-500 leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <CasesSection />
+
+      {/* Urgency Section */}
+      <section className="py-24 bg-red-50 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div>
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-red-100 rounded-full text-xs font-bold text-red-600 mb-8 uppercase tracking-widest">
+              <AlertTriangle size={14} />
+              Риск бездействия
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-8 tracking-tight leading-tight">
+              У вас осталось <span className="text-red-600">24 месяца</span>.
+            </h2>
+            <p className="text-lg text-slate-700 mb-8 leading-relaxed">
+              Рынок не будет ждать. Компании на ручном управлении физически не смогут конкурировать с цифровыми оркестрами, чья себестоимость транзакции стремится к нулю.
+            </p>
+            <div className="p-6 bg-white rounded-2xl border border-red-100 shadow-sm">
+              <div className="text-sm font-bold text-slate-900 mb-2 uppercase tracking-wider">Выбор очевиден:</div>
+              <p className="text-sm text-slate-600">Трансформация или необратимая потеря маржи. Экономика нового времени не прощает медлительности.</p>
+            </div>
+          </div>
+          <div className="relative h-[300px] md:h-[400px] flex items-center justify-center scale-75 md:scale-100">
+            {/* Background Glow */}
+            <div className="absolute inset-0 bg-red-500/5 rounded-full blur-[120px]" />
+            
+            {/* Digital Hourglass Container */}
+            <div className="relative w-full max-w-md aspect-[3/4] flex flex-col items-center justify-between py-8 md:py-12">
+              
+              {/* Top: Legacy Zone */}
+              <div className="text-center z-10">
+                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.3em] mb-2">Legacy Model</div>
+                <div className="w-32 h-1 bg-slate-200 rounded-full overflow-hidden">
+                  <motion.div 
+                    animate={{ x: ['-100%', '100%'] }}
+                    transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                    className="w-1/2 h-full bg-slate-400/30"
+                  />
+                </div>
+              </div>
+
+              {/* Center: The Critical Point */}
+              <div className="relative flex items-center justify-center">
+                {/* Vortex/Flow Animation */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  {[...Array(12)].map((_, i) => (
+                    <motion.div
+                      key={i}
+                      animate={{ 
+                        rotate: 360,
+                        scale: [1, 1.2, 1],
+                        opacity: [0.2, 0.5, 0.2]
+                      }}
+                      transition={{ 
+                        duration: 10 + i, 
+                        repeat: Infinity, 
+                        ease: "linear" 
+                      }}
+                      className="absolute border border-red-500/10 rounded-full"
+                      style={{ 
+                        width: `${100 + i * 20}px`, 
+                        height: `${100 + i * 20}px`,
+                        borderStyle: i % 2 === 0 ? 'solid' : 'dashed'
+                      }}
+                    />
+                  ))}
+                </div>
+
+                {/* The Number */}
+                <div className="relative z-20 flex flex-col items-center">
+                  <motion.div 
+                    animate={{ 
+                      scale: [1, 1.02, 1],
+                      filter: ['brightness(1)', 'brightness(1.2)', 'brightness(1)']
+                    }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                    className="text-8xl md:text-9xl font-black text-slate-900 leading-none"
+                  >
+                    24
+                  </motion.div>
+                  <div className="text-sm font-bold text-red-600 uppercase tracking-[0.4em] mt-2">Months Left</div>
+                </div>
+
+                {/* Falling Particles */}
+                <div className="absolute inset-0 pointer-events-none">
+                  {[...Array(20)].map((_, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ y: -150, x: (Math.random() - 0.5) * 40, opacity: 0, scale: 0 }}
+                      animate={{ 
+                        y: 150, 
+                        opacity: [0, 1, 1, 0],
+                        scale: [0, 1, 1, 0.5],
+                        x: (Math.random() - 0.5) * 100
+                      }}
+                      transition={{ 
+                        duration: 2 + Math.random() * 2, 
+                        repeat: Infinity, 
+                        delay: Math.random() * 5,
+                        ease: "circIn"
+                      }}
+                      className="absolute w-1 h-1 bg-red-500 rounded-full"
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {/* Bottom: AI-Native Zone */}
+              <div className="text-center z-10">
+                <div className="w-32 h-1 bg-red-100 rounded-full overflow-hidden mb-2">
+                  <motion.div 
+                    animate={{ width: ['0%', '100%'] }}
+                    transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
+                    className="h-full bg-red-500"
+                  />
+                </div>
+                <div className="text-[10px] font-bold text-red-600 uppercase tracking-[0.3em]">AI-Native Future</div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="py-24 bg-slate-900 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center relative z-10">
+          <div className="text-white">
+            <h2 className="text-4xl md:text-5xl font-bold mb-8 tracking-tight leading-tight">
+              Станьте дирижером цифрового оркестра.
+            </h2>
+            <p className="text-xl text-slate-400 mb-12 leading-relaxed">
+              Перестаньте быть главным исполнителем рутины и тушителем пожаров. Отдайте хаос алгоритмам и сосредоточьтесь на стратегии. Ваш бизнес-болид готов к запуску.
+            </p>
+            <div className="space-y-6">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center text-white border border-white/10">
+                  <Mail size={20} />
+                </div>
+                <div>
+                  <div className="text-xs text-slate-500 uppercase font-bold tracking-widest">Email</div>
+                  <div className="font-bold">hello@ai-advisory.ru</div>
+                </div>
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center text-white border border-white/10">
+                  <Phone size={20} />
+                </div>
+                <div>
+                  <div className="text-xs text-slate-500 uppercase font-bold tracking-widest">Телефон</div>
+                  <div className="font-bold">+7 (495) 000-00-00</div>
+                </div>
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center text-white border border-white/10">
+                  <Building2 size={20} />
+                </div>
+                <div>
+                  <div className="text-xs text-slate-500 uppercase font-bold tracking-widest">Офис</div>
+                  <div className="font-bold">Москва Сити, Башня Федерация</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <LeadForm 
+            title="Записаться на аудит" 
+            subtitle="Мы проанализируем ваши процессы и подготовим расчет ROI за 48 часов."
+          />
+        </div>
+        {/* Background glow */}
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-600/20 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/4" />
+      </section>
+
+      {/* Footer */}
+      <footer className="py-12 bg-slate-900 border-t border-white/5 text-white/40">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8">
+          <div className="flex items-center gap-2 grayscale opacity-50">
+            <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center text-slate-900 font-bold">
+              AI
+            </div>
+            <span className="font-bold text-white tracking-tight">TRANSFORMATION</span>
+          </div>
+          <div className="flex gap-8 text-xs font-bold uppercase tracking-widest">
+            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+            <a href="#" className="hover:text-white transition-colors">Cookies</a>
+          </div>
+          <div className="text-xs">
+            © 2026 AI Transformation Advisory. Все права защищены.
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
